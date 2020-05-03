@@ -6,6 +6,7 @@ import java.util.Optional;
 public class CommandArgs {
 
 	private List<Object> args;
+	
 	public CommandArgs(List<Object> args) {
 		this.args = args;
 	}
