@@ -8,6 +8,7 @@ public enum ArgType {
 
 	INTEGER(Integer.class),
 	DOUBLE(Double.class),
+	STRING(String.class),
 	UUID(UUID.class),
 	PLAYER(CommanderPlayer.class);
 	
