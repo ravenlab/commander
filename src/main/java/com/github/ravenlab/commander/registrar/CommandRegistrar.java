@@ -2,8 +2,11 @@ package com.github.ravenlab.commander.registrar;
 
 import com.github.ravenlab.commander.command.CommanderCommand;
 
-public interface CommandRegistrar {
+public abstract class CommandRegistrar {
 
-	public boolean register(CommanderCommand command);
-	
+	public abstract boolean register(CommanderCommand command, boolean forceRegister);
+
+	public boolean register(CommanderCommand command) {
+		return this.register(command, false);
+	}
 }
