@@ -2,6 +2,7 @@ package com.github.ravenlab.commander.command.bukkit;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ import org.bukkit.plugin.Plugin;
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommandRegistrar;
 import com.github.ravenlab.commander.command.CommanderCommand;
+import com.github.ravenlab.commander.command.RegistrationData;
+import com.github.ravenlab.commander.command.RegistrationStatus;
 
 public class BukkitCommandRegistrar extends CommandRegistrar<Plugin> {
 	
@@ -25,21 +28,23 @@ public class BukkitCommandRegistrar extends CommandRegistrar<Plugin> {
 	}
 
 	@Override
-	public List<String> register(Plugin plugin, CommanderCommand command, boolean forceRegister) {
+	public RegistrationData register(Plugin plugin, CommanderCommand command, boolean forceRegister) {
 		List<String> registeredAliases = new ArrayList<>();
 		CommandData data = this.parseCommandData(command);
 		if(data == null) {
-			return registeredAliases;
+			return new RegistrationData(registeredAliases, RegistrationStatus.NO_ANNOTATION);
 		}
 		
 		Command bukkitCommand = this.createBukkitCommand(command);
-		for(String alias : data.getAliases()) {
+		Collection<String> aliases = data.getAliases();
+		for(String alias : aliases) {
 			if(this.tryToRegister(alias, forceRegister, bukkitCommand)) {
 				registeredAliases.add(alias);
 			}
 		}
 		
-		return registeredAliases;
+		RegistrationStatus status = this.getStatus(data, registeredAliases);
+		return new RegistrationData(registeredAliases, status);
 	}
 	
 	private boolean tryToRegister(String alias, boolean forceRegister, Command command) {
