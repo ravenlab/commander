@@ -1,10 +1,18 @@
 package com.github.ravenlab.commander;
 
-import com.github.ravenlab.commander.command.CommanderCommand;
+import com.github.ravenlab.commander.registrar.CommandRegistrar;
 
 public class Commander {
 
-	public boolean register(CommanderCommand command) {
+	public static CommandRegistrar createRegistrar() {
+		return createRegistrar(findPlatform());
+	}
+	
+	public static CommandRegistrar createRegistrar(Platform platform) {
+		
+	}
+	
+	private static Platform findPlatform() {
 		
 	}
 }
