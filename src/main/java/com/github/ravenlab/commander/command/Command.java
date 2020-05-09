@@ -11,6 +11,6 @@ public @interface Command {
 
 	String value();
 	String[] aliases();
-	String permission();
+	String permission() default "";
 	
 }

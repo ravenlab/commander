@@ -28,6 +28,10 @@ public class BukkitCommandRegistrar extends CommandRegistrar<Plugin> {
 	public List<String> register(Plugin plugin, CommanderCommand command, boolean forceRegister) {
 		List<String> registeredAliases = new ArrayList<>();
 		CommandData data = this.parseCommandData(command);
+		if(data == null) {
+			return registeredAliases;
+		}
+		
 		Command bukkitCommand = this.createBukkitCommand(command);
 		for(String alias : data.getAliases()) {
 			if(this.tryToRegister(alias, forceRegister, bukkitCommand)) {
