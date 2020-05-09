@@ -43,8 +43,23 @@ public class BukkitCommandRegistrar extends CommandRegistrar<Plugin> {
 			}
 		}
 		
+		this.addPluginCommands(plugin, registeredAliases);
 		RegistrationStatus status = this.getStatus(data, registeredAliases);
 		return new RegistrationData(registeredAliases, status);
+	}
+	
+	@Override
+	public boolean unregister(Plugin plugin) {
+		Collection<String> commands = this.getCommands(plugin);
+		if(commands == null) {
+			return false;
+		}
+		
+		for(String cmd : commands) {
+			this.knownCommands.remove(cmd);
+		}
+		
+		return this.removePluginCommands(plugin);
 	}
 	
 	private boolean tryToRegister(String alias, boolean forceRegister, Command command) {
