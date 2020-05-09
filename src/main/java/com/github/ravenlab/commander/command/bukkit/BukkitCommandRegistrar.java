@@ -23,6 +23,7 @@ import com.github.ravenlab.commander.command.RegistrationStatus;
 public class BukkitCommandRegistrar extends CommandRegistrar<Plugin> {
 	
 	private Map<String, Command> knownCommands;
+	
 	public BukkitCommandRegistrar() {
 		this.knownCommands = this.getKnownCommands();
 	}
@@ -35,7 +36,7 @@ public class BukkitCommandRegistrar extends CommandRegistrar<Plugin> {
 			return new RegistrationData(registeredAliases, RegistrationStatus.NO_ANNOTATION);
 		}
 		
-		Command bukkitCommand = this.createBukkitCommand(command);
+		Command bukkitCommand = this.createBukkitCommand(data, command);
 		Collection<String> aliases = data.getAliases();
 		for(String alias : aliases) {
 			if(this.tryToRegister(alias, forceRegister, bukkitCommand)) {
@@ -71,8 +72,8 @@ public class BukkitCommandRegistrar extends CommandRegistrar<Plugin> {
 		}
 	}
 	
-	private Command createBukkitCommand(CommanderCommand command) {
-		
+	private Command createBukkitCommand(CommandData data, CommanderCommand command) {
+		return new BukkitCommandWrapper(data, command);
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -13,6 +13,7 @@ public enum ArgType {
 	PLAYER(CommanderPlayer.class);
 	
 	private Class<?> clazz;
+	
 	private ArgType(Class<?> clazz) {
 		this.clazz = clazz;
 	}

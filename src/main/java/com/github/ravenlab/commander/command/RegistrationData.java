@@ -6,6 +6,7 @@ public class RegistrationData {
 
 	public List<String> aliases;
 	private RegistrationStatus status;
+	
 	public RegistrationData(List<String> aliases, RegistrationStatus status) {
 		this.aliases = aliases;
 		this.status = status;

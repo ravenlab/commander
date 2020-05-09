@@ -14,7 +14,7 @@ public abstract class CommanderCommand {
 		this.children = new ArrayList<>();
 	}
 	
-	public abstract void doCommand(CommanderSender sender, String name, CommandArgs arg);
+	public abstract void doCommand(CommanderSender<?> sender, String name, CommandArgs arg);
 	
 	public List<CommanderCommand> getChildren() {
 		return Collections.unmodifiableList(this.children);

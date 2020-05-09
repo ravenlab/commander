@@ -1,7 +1,17 @@
 package com.github.ravenlab.commander.sender;
 
-public interface CommanderSender {
+public abstract class CommanderSender<T> {
 
-	public abstract String getName();
+	private T sender;
 	
+	public CommanderSender(T sender) {
+		this.sender = sender;
+	}
+	
+	public abstract String getName();
+	public abstract boolean hasPermission(String permission);
+	
+	public T getNative() {
+		return this.sender;
+	}
 }

@@ -12,6 +12,7 @@ import java.util.Map;
 public abstract class CommandRegistrar<T> {
 
 	private Map<T, Collection<String>> pluginCommands;
+	
 	public CommandRegistrar() {
 		this.pluginCommands = new HashMap<>();
 	}
@@ -54,9 +55,10 @@ public abstract class CommandRegistrar<T> {
 			return null;
 		}
 		
+		String name = found.value();
 		List<String> aliases = Arrays.asList(found.aliases());
-		aliases.add(found.value());
-		return new CommandData(aliases);
+		aliases.add(name);
+		return new CommandData(name, aliases);
 	}
 	
 	protected RegistrationStatus getStatus(CommandData data, Collection<String> aliases) {
