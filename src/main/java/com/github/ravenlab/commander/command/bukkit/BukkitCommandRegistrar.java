@@ -13,8 +13,8 @@ import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.Plugin;
 
 import com.github.ravenlab.commander.command.CommandData;
-import com.github.ravenlab.commander.command.CommandRegistrar;
 import com.github.ravenlab.commander.command.CommanderCommand;
+import com.github.ravenlab.commander.command.registrar.CommandRegistrar;
 
 public class BukkitCommandRegistrar extends CommandRegistrar<Plugin, Command> {
 	

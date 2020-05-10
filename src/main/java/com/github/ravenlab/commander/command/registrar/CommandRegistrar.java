@@ -1,4 +1,4 @@
-package com.github.ravenlab.commander.command;
+package com.github.ravenlab.commander.command.registrar;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import com.github.ravenlab.commander.command.Command;
+import com.github.ravenlab.commander.command.CommandData;
+import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.inject.CommandModule;
 import com.github.ravenlab.commander.util.ChatColor;
 import com.google.inject.Guice;
