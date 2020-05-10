@@ -8,6 +8,7 @@ import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.command.CommanderExecutor;
 import com.github.ravenlab.commander.player.bukkit.BukkitCommanderPlayer;
+import com.github.ravenlab.commander.resolver.bukkit.BukkitTypeResolver;
 import com.github.ravenlab.commander.sender.CommanderSender;
 import com.github.ravenlab.commander.sender.bukkit.BukkitCommanderSender;
 
@@ -17,7 +18,7 @@ public class BukkitCommandWrapper extends Command {
 	
 	public BukkitCommandWrapper(CommandData data, CommanderCommand command)  {
 		super(data.getName());
-		this.executor = new CommanderExecutor(command);
+		this.executor = new CommanderExecutor(command, new BukkitTypeResolver());
 	}
 
 	@Override

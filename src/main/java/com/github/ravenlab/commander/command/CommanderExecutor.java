@@ -4,16 +4,19 @@ import java.util.Arrays;
 
 import com.github.ravenlab.commander.command.parser.CommandParser;
 import com.github.ravenlab.commander.command.parser.ParserData;
+import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.sender.CommanderSender;
 
 public class CommanderExecutor {
 
 	private CommanderCommand command;
 	private CommandParser parser;
+	private TypeResolver<?> resolver;
 	
-	public CommanderExecutor(CommanderCommand command) {
+	public CommanderExecutor(CommanderCommand command, TypeResolver<?> resolver) {
 		this.command = command;
 		this.parser = new CommandParser();
+		this.resolver = resolver;
 	}
 	
 	public void execute(CommanderSender<?> sender, String label, String[] args) {
@@ -25,7 +28,7 @@ public class CommanderExecutor {
 		String permission = commandData.getPermission();
 		
 		if(permission.equals("") || sender.hasPermission(permission)) {
-			CommandArgs commandArgs = new CommandArgs(Arrays.asList(executeArgs));
+			CommandArgs commandArgs = new CommandArgs(Arrays.asList(executeArgs), this.resolver);
 			commandToExecute.doCommand(sender, label, commandArgs);
 		} else {
 			String noPermissionMessage = commandData.getNoPermissionMessage();
