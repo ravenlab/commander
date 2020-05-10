@@ -22,6 +22,7 @@ public abstract class CommandRegistrar<T, E> {
 	
 	public abstract boolean unregister(T plugin);
 	protected abstract boolean tryToRegister(String alias, boolean forceRegister, E command);
+	protected abstract E createCommandWrapper(CommandData data, CommanderCommand command);
 	
 	public RegistrationData register(T plugin, CommanderCommand command, boolean forceRegister) {
 		Collection<String> registeredAliases = new ArrayList<>();
@@ -55,14 +56,11 @@ public abstract class CommandRegistrar<T, E> {
 		return this.pluginCommands.remove(plugin) != null;
 	}
 	
-	protected abstract E createCommandWrapper(CommandData data, CommanderCommand command);
-	
 	private void bootstrapCommand(T plugin, CommanderCommand command, CommandData data) {
 		Collection<String> aliases = data.getAliases();
 		this.addPluginCommands(plugin, aliases);
 		this.injectCommand(command, data);
 	}
-	
 	
 	private void addPluginCommands(T plugin, Collection<String> registeredCommands) {
 		Collection<String> cmds = this.pluginCommands.get(plugin);
