@@ -1,5 +1,6 @@
 package com.github.ravenlab.commander.command;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RegistrationData {
@@ -8,7 +9,7 @@ public class RegistrationData {
 	private RegistrationStatus status;
 	
 	public RegistrationData(List<String> aliases, RegistrationStatus status) {
-		this.aliases = aliases;
+		this.aliases = Collections.unmodifiableList(aliases);
 		this.status = status;
 	}
 	
