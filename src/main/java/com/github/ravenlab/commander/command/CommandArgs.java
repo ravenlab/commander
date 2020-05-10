@@ -11,22 +11,21 @@ public class CommandArgs {
 		this.args = args;
 	}
 	
-	public boolean isType(int index, ArgType type) {
-		if(this.isOutOfBounds(index)) {
-			return false;
-		}
-		
-		return type.isType(this.args.get(index));
-	}
-	
 	@SuppressWarnings("unchecked")
-	public <T> Optional<T> getArg(int index) {
+	public <T> Optional<T> getArg(Class<T> clazz, int index) {
 		if(isOutOfBounds(index)) {
+			return Optional.empty();
+		} else if(!isType(clazz, index)) {
 			return Optional.empty();
 		}
 		
 		Object obj = this.args.get(index);
 		return Optional.of((T) obj);
+	}
+	
+	private boolean isType(Class<?> clazz, int index) {
+		Class<?> objClazz = this.args.get(index).getClass();
+		return clazz.isAssignableFrom(objClazz);
 	}
 	
 	private boolean isOutOfBounds(int index) {
