@@ -44,7 +44,7 @@ public class BukkitCommandRegistrar extends CommandRegistrar<Plugin> {
 			}
 		}
 		
-		this.bootstrapCommand(plugin, command, registeredAliases);
+		this.bootstrapCommand(plugin, command, data);
 		RegistrationStatus status = this.getStatus(data, registeredAliases);
 		return new RegistrationData(registeredAliases, status);
 	}

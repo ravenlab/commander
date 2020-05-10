@@ -11,8 +11,8 @@ import com.google.inject.name.Named;
 public abstract class CommanderCommand {
 	
 	@Inject
-	@Named("aliases")
-	private List<String> aliases;
+	@Named("data")
+	private CommandData data;
 	private List<CommanderCommand> children;
 	
 	public CommanderCommand() {
@@ -21,8 +21,8 @@ public abstract class CommanderCommand {
 	
 	public abstract void doCommand(CommanderSender<?> sender, String name, CommandArgs arg);
 	
-	public List<String> getAliases() {
-		return this.aliases;
+	public CommandData getData() {
+		return this.data;
 	}
 	
 	public List<CommanderCommand> getChildren() {

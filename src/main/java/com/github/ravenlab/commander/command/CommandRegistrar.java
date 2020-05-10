@@ -35,9 +35,10 @@ public abstract class CommandRegistrar<T> {
 		return this.pluginCommands.remove(plugin) != null;
 	}
 	
-	protected void bootstrapCommand(T plugin, CommanderCommand command, List<String> aliases) {
+	protected void bootstrapCommand(T plugin, CommanderCommand command, CommandData data) {
+		List<String> aliases = data.getAliases();
 		this.addPluginCommands(plugin, aliases);
-		this.injectCommand(command, aliases);
+		this.injectCommand(command, data);
 	}
 	
 	private void addPluginCommands(T plugin, Collection<String> registeredCommands) {
@@ -50,8 +51,8 @@ public abstract class CommandRegistrar<T> {
 		cmds.addAll(registeredCommands);
 	}
 	
-	private void injectCommand(CommanderCommand command, List<String> aliases) {
-		Guice.createInjector(new CommandModule(command, aliases));
+	private void injectCommand(CommanderCommand command, CommandData data) {
+		Guice.createInjector(new CommandModule(command, data));
 	}
 	
 	protected CommandData parseCommandData(CommanderCommand command) {

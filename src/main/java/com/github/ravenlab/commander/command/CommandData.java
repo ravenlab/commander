@@ -1,13 +1,13 @@
 package com.github.ravenlab.commander.command;
 
-import java.util.Collection;
+import java.util.List;
 
 public class CommandData {
 
 	private String name;
-	private Collection<String> aliases;
+	private List<String> aliases;
 	
-	public CommandData(String name, Collection<String> aliases) {
+	public CommandData(String name, List<String> aliases) {
 		this.name = name;
 		this.aliases = aliases;
 	}
@@ -16,7 +16,7 @@ public class CommandData {
 		return this.name;
 	}
 	
-	public Collection<String> getAliases() {
+	public List<String> getAliases() {
 		return this.aliases;
 	}
 }
