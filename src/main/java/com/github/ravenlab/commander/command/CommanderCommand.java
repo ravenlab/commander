@@ -6,10 +6,12 @@ import java.util.List;
 
 import com.github.ravenlab.commander.sender.CommanderSender;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 public abstract class CommanderCommand {
 	
 	@Inject
+	@Named("aliases")
 	private List<String> aliases;
 	private List<CommanderCommand> children;
 	
