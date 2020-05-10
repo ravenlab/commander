@@ -1,5 +1,6 @@
 package com.github.ravenlab.commander.command;
 
+import java.util.Collections;
 import java.util.List;
 
 public class CommandData {
@@ -9,7 +10,7 @@ public class CommandData {
 	
 	public CommandData(String name, List<String> aliases) {
 		this.name = name;
-		this.aliases = aliases;
+		this.aliases = Collections.unmodifiableList(aliases);
 	}
 	
 	public String getName() {
