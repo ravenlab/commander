@@ -17,11 +17,16 @@ public class CommanderExecutor {
 	}
 	
 	public void execute(CommanderSender<?> sender, String label, String[] args) {
-		ParserData data = this.parser.parse(this.command, args);
-		CommanderCommand commandToExecute = data.getCommand();
-		String[] executeArgs = data.getArgs();
+		ParserData parserData = this.parser.parse(this.command, args);
+		CommanderCommand commandToExecute = parserData.getCommand();
+		CommandData commandData = commandToExecute.getData();
 		
-		CommandArgs commandArgs = new CommandArgs(Arrays.asList(executeArgs));
-		commandToExecute.doCommand(sender, label, commandArgs); 
+		String[] executeArgs = parserData.getArgs();
+		String permission = commandData.getPermission();
+		
+		if(permission.equals("") || sender.hasPermission(permission)) {
+			CommandArgs commandArgs = new CommandArgs(Arrays.asList(executeArgs));
+			commandToExecute.doCommand(sender, label, commandArgs);
+		}
 	}
 }

@@ -10,6 +10,7 @@ public class CommandModule implements Module {
 
 	private CommanderCommand command;
 	private CommandData data;
+	
 	public CommandModule(CommanderCommand command, CommandData data) {
 		this.command = command;
 		this.data = data;
