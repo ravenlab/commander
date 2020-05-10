@@ -10,6 +10,7 @@ public abstract class CommanderSender<T> {
 	
 	public abstract String getName();
 	public abstract boolean hasPermission(String permission);
+	public abstract void sendMessage(String message);
 	
 	public T getNative() {
 		return this.sender;

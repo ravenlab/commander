@@ -8,11 +8,13 @@ public class CommandData {
 	private String name;
 	private List<String> aliases;
 	private String permission;
+	private String noPermissionMessage;
 	
-	public CommandData(String name, List<String> aliases, String permission) {
+	public CommandData(String name, List<String> aliases, String permission, String noPermissionMessage) {
 		this.name = name;
 		this.aliases = Collections.unmodifiableList(aliases);
 		this.permission = permission;
+		this.noPermissionMessage = noPermissionMessage;
 	}
 	
 	public String getName() {
@@ -25,5 +27,9 @@ public class CommandData {
 	
 	public String getPermission() {
 		return this.permission;
+	}
+	
+	public String getNoPermissionMessage() {
+		return this.noPermissionMessage;
 	}
 }

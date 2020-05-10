@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.ravenlab.commander.inject.CommandModule;
+import com.github.ravenlab.commander.util.ChatColor;
 import com.google.inject.Guice;
 
 public abstract class CommandRegistrar<T, E> {
@@ -96,8 +97,15 @@ public abstract class CommandRegistrar<T, E> {
 		List<String> aliases = Arrays.asList(found.aliases());
 		aliases.add(name);
 		String permission = found.permission();
+		String noPermissionMessage = found.noPermissionMessage();
 		
-		return new CommandData(name, aliases, permission);
+		if(noPermissionMessage.equals("")) {
+			noPermissionMessage = ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to execute that command!");
+		} else {
+			noPermissionMessage = ChatColor.translateAlternateColorCodes('&', noPermissionMessage);
+		}
+		
+		return new CommandData(name, aliases, permission, noPermissionMessage);
 	}
 	
 	protected RegistrationStatus getStatus(CommandData data, Collection<String> aliases) {

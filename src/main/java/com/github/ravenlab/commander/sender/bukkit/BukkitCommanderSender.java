@@ -19,4 +19,9 @@ public class BukkitCommanderSender extends CommanderSender<CommandSender> {
 	public boolean hasPermission(String permission) {
 		return this.getNative().hasPermission(permission);
 	}
+
+	@Override
+	public void sendMessage(String message) {
+		this.getNative().sendMessage(message);
+	}
 }
