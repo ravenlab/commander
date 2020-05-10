@@ -75,7 +75,7 @@ public abstract class CommandRegistrar<T> {
 	
 	protected RegistrationStatus getStatus(CommandData data, Collection<String> aliases) {
 		if(aliases.size() == 0) {
-			return RegistrationStatus.REGISTERED_NONE;
+			return RegistrationStatus.FAILED;
 		} else if(aliases.size() != data.getAliases().size()) {
 			return RegistrationStatus.REGISTERED_SOME;
 		} else {
