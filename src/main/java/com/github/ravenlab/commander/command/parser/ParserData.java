@@ -6,6 +6,7 @@ public class ParserData {
 
 	private CommanderCommand command;
 	private String[] args;
+	
 	public ParserData(CommanderCommand command, String[] args) {
 		this.command = command;
 		this.args = args;

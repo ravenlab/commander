@@ -10,6 +10,7 @@ public class CommanderExecutor {
 
 	private CommanderCommand command;
 	private CommandParser parser;
+	
 	public CommanderExecutor(CommanderCommand command) {
 		this.command = command;
 		this.parser = new CommandParser();

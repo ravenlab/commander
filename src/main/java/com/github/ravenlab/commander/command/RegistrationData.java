@@ -5,7 +5,7 @@ import java.util.List;
 
 public class RegistrationData {
 
-	public List<String> aliases;
+	private List<String> aliases;
 	private RegistrationStatus status;
 	
 	public RegistrationData(List<String> aliases, RegistrationStatus status) {
