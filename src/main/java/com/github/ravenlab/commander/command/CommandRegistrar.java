@@ -60,7 +60,7 @@ public abstract class CommandRegistrar<T, E> {
 	protected abstract E createCommandWrapper(CommandData data, CommanderCommand command);
 	
 	private void bootstrapCommand(T plugin, CommanderCommand command, CommandData data) {
-		List<String> aliases = data.getAliases();
+		Collection<String> aliases = data.getAliases();
 		this.addPluginCommands(plugin, aliases);
 		this.injectCommand(command, data);
 	}
@@ -94,7 +94,11 @@ public abstract class CommandRegistrar<T, E> {
 		}
 		
 		String name = found.value();
-		List<String> aliases = Arrays.asList(found.aliases());
+		Collection<String> aliases = new HashSet<>();
+		for(String alias : found.aliases()) {
+			aliases.add(alias.toLowerCase());
+		}
+		
 		aliases.add(name);
 		String permission = found.permission();
 		String noPermissionMessage = found.noPermissionMessage();

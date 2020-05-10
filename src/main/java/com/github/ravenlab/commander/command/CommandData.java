@@ -1,18 +1,18 @@
 package com.github.ravenlab.commander.command;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class CommandData {
 
 	private String name;
-	private List<String> aliases;
+	private Collection<String> aliases;
 	private String permission;
 	private String noPermissionMessage;
 	
-	public CommandData(String name, List<String> aliases, String permission, String noPermissionMessage) {
+	public CommandData(String name, Collection<String> aliases, String permission, String noPermissionMessage) {
 		this.name = name;
-		this.aliases = Collections.unmodifiableList(aliases);
+		this.aliases = Collections.unmodifiableCollection(aliases);
 		this.permission = permission;
 		this.noPermissionMessage = noPermissionMessage;
 	}
@@ -21,7 +21,7 @@ public class CommandData {
 		return this.name;
 	}
 	
-	public List<String> getAliases() {
+	public Collection<String> getAliases() {
 		return this.aliases;
 	}
 	
