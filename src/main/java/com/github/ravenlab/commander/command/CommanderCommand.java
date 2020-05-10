@@ -1,8 +1,8 @@
 package com.github.ravenlab.commander.command;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import com.github.ravenlab.commander.sender.CommanderSender;
 import com.google.inject.Inject;
@@ -13,7 +13,7 @@ public abstract class CommanderCommand {
 	@Inject
 	@Named("data")
 	private CommandData data;
-	private List<CommanderCommand> children;
+	private Collection<CommanderCommand> children;
 	
 	public CommanderCommand() {
 		this.children = new ArrayList<>();
@@ -25,8 +25,8 @@ public abstract class CommanderCommand {
 		return this.data;
 	}
 	
-	public List<CommanderCommand> getChildren() {
-		return Collections.unmodifiableList(this.children);
+	public Collection<CommanderCommand> getChildren() {
+		return Collections.unmodifiableCollection(this.children);
 	}
 	
 	public CommanderCommand addChild(CommanderCommand child) {

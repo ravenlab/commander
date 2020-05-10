@@ -2,12 +2,10 @@ package com.github.ravenlab.commander.command;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 
 import com.github.ravenlab.commander.inject.CommandModule;
@@ -26,7 +24,7 @@ public abstract class CommandRegistrar<T, E> {
 	protected abstract boolean tryToRegister(String alias, boolean forceRegister, E command);
 	
 	public RegistrationData register(T plugin, CommanderCommand command, boolean forceRegister) {
-		List<String> registeredAliases = new ArrayList<>();
+		Collection<String> registeredAliases = new ArrayList<>();
 		CommandData data = this.parseCommandData(command);
 		if(data == null) {
 			return new RegistrationData(registeredAliases, RegistrationStatus.NO_ANNOTATION);

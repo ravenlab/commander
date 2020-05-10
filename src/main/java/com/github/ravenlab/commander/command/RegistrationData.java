@@ -1,19 +1,19 @@
 package com.github.ravenlab.commander.command;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class RegistrationData {
 
-	private List<String> aliases;
+	private Collection<String> aliases;
 	private RegistrationStatus status;
 	
-	public RegistrationData(List<String> aliases, RegistrationStatus status) {
-		this.aliases = Collections.unmodifiableList(aliases);
+	public RegistrationData(Collection<String> aliases, RegistrationStatus status) {
+		this.aliases = Collections.unmodifiableCollection(aliases);
 		this.status = status;
 	}
 	
-	public List<String> getAliases() {
+	public Collection<String> getAliases() {
 		return this.aliases;
 	}
 	
