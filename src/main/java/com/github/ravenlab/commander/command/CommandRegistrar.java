@@ -1,6 +1,7 @@
 package com.github.ravenlab.commander.command;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,7 +13,7 @@ import java.util.Map;
 import com.github.ravenlab.commander.inject.CommandModule;
 import com.google.inject.Guice;
 
-public abstract class CommandRegistrar<T> {
+public abstract class CommandRegistrar<T, E> {
 
 	private Map<T, Collection<String>> pluginCommands;
 	
@@ -20,8 +21,28 @@ public abstract class CommandRegistrar<T> {
 		this.pluginCommands = new HashMap<>();
 	}
 	
-	public abstract RegistrationData register(T plugin, CommanderCommand command, boolean forceRegister);
 	public abstract boolean unregister(T plugin);
+	protected abstract boolean tryToRegister(String alias, boolean forceRegister, E command);
+	
+	public RegistrationData register(T plugin, CommanderCommand command, boolean forceRegister) {
+		List<String> registeredAliases = new ArrayList<>();
+		CommandData data = this.parseCommandData(command);
+		if(data == null) {
+			return new RegistrationData(registeredAliases, RegistrationStatus.NO_ANNOTATION);
+		}
+		
+		E wrapperCommand = this.createCommandWrapper(data, command);
+		Collection<String> aliases = data.getAliases();
+		for(String alias : aliases) {
+			if(this.tryToRegister(alias, forceRegister, wrapperCommand)) {
+				registeredAliases.add(alias);
+			}
+		}
+		
+		this.bootstrapCommand(plugin, command, data);
+		RegistrationStatus status = this.getStatus(data, registeredAliases);
+		return new RegistrationData(registeredAliases, status);
+	}
 	
 	public RegistrationData register(T plugin, CommanderCommand command) {
 		return this.register(plugin, command, false);
@@ -35,11 +56,14 @@ public abstract class CommandRegistrar<T> {
 		return this.pluginCommands.remove(plugin) != null;
 	}
 	
-	protected void bootstrapCommand(T plugin, CommanderCommand command, CommandData data) {
+	protected abstract E createCommandWrapper(CommandData data, CommanderCommand command);
+	
+	private void bootstrapCommand(T plugin, CommanderCommand command, CommandData data) {
 		List<String> aliases = data.getAliases();
 		this.addPluginCommands(plugin, aliases);
 		this.injectCommand(command, data);
 	}
+	
 	
 	private void addPluginCommands(T plugin, Collection<String> registeredCommands) {
 		Collection<String> cmds = this.pluginCommands.get(plugin);
@@ -71,7 +95,9 @@ public abstract class CommandRegistrar<T> {
 		String name = found.value();
 		List<String> aliases = Arrays.asList(found.aliases());
 		aliases.add(name);
-		return new CommandData(name, aliases);
+		String permission = found.permission();
+		
+		return new CommandData(name, aliases, permission);
 	}
 	
 	protected RegistrationStatus getStatus(CommandData data, Collection<String> aliases) {
