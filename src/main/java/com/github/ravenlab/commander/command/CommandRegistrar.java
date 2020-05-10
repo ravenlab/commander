@@ -14,6 +14,8 @@ import com.google.inject.Guice;
 
 public abstract class CommandRegistrar<T, E> {
 
+	private static final String NO_PERMISSION_MESSAGE = "&cYou do not have permission to execute that command!";
+	
 	private Map<T, Collection<String>> pluginCommands;
 	
 	public CommandRegistrar() {
@@ -101,7 +103,7 @@ public abstract class CommandRegistrar<T, E> {
 		String noPermissionMessage = found.noPermissionMessage();
 		
 		if(noPermissionMessage.equals("")) {
-			noPermissionMessage = ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to execute that command!");
+			noPermissionMessage = ChatColor.translateAlternateColorCodes('&', NO_PERMISSION_MESSAGE);
 		} else {
 			noPermissionMessage = ChatColor.translateAlternateColorCodes('&', noPermissionMessage);
 		}

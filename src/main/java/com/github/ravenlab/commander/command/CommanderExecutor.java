@@ -24,7 +24,6 @@ public class CommanderExecutor {
 		String[] executeArgs = parserData.getArgs();
 		String permission = commandData.getPermission();
 		
-		
 		if(permission.equals("") || sender.hasPermission(permission)) {
 			CommandArgs commandArgs = new CommandArgs(Arrays.asList(executeArgs));
 			commandToExecute.doCommand(sender, label, commandArgs);
