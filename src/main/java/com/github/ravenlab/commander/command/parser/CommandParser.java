@@ -13,7 +13,7 @@ public class CommandParser {
 			for(CommanderCommand child : root.getChildren()) {
 				for(String alias : child.getAliases()) {
 					if(arg.equalsIgnoreCase(alias)) {
-						String[] newArgs = Arrays.copyOfRange(args, 0, args.length - 1);
+						String[] newArgs = Arrays.copyOfRange(args, i, args.length);
 						return parse(child, newArgs);
 					}
 				}
