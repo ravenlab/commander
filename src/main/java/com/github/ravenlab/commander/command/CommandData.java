@@ -6,6 +6,7 @@ public class CommandData {
 
 	private String name;
 	private Collection<String> aliases;
+	
 	public CommandData(String name, Collection<String> aliases) {
 		this.name = name;
 		this.aliases = aliases;

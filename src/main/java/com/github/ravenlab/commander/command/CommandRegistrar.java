@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import com.github.ravenlab.commander.inject.CommandModule;
+import com.google.inject.Guice;
+
 public abstract class CommandRegistrar<T> {
 
 	private Map<T, Collection<String>> pluginCommands;
@@ -32,7 +35,12 @@ public abstract class CommandRegistrar<T> {
 		return this.pluginCommands.remove(plugin) != null;
 	}
 	
-	protected void addPluginCommands(T plugin, Collection<String> registeredCommands) {
+	protected void bootstrapCommand(T plugin, CommanderCommand command, List<String> aliases) {
+		this.addPluginCommands(plugin, aliases);
+		this.injectCommand(command, aliases);
+	}
+	
+	private void addPluginCommands(T plugin, Collection<String> registeredCommands) {
 		Collection<String> cmds = this.pluginCommands.get(plugin);
 		if(cmds == null) {
 			cmds = new HashSet<>();
@@ -40,6 +48,10 @@ public abstract class CommandRegistrar<T> {
 		}
 		
 		cmds.addAll(registeredCommands);
+	}
+	
+	private void injectCommand(CommanderCommand command, List<String> aliases) {
+		Guice.createInjector(new CommandModule(command, aliases));
 	}
 	
 	protected CommandData parseCommandData(CommanderCommand command) {
