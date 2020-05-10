@@ -98,8 +98,9 @@ public abstract class CommandRegistrar<T, E> {
 		for(String alias : found.aliases()) {
 			aliases.add(alias.toLowerCase());
 		}
+		aliases.add(name.toLowerCase());
 		
-		aliases.add(name);
+		
 		String permission = found.permission();
 		String noPermissionMessage = found.noPermissionMessage();
 		
