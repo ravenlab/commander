@@ -11,9 +11,9 @@ public class CommanderExecutor {
 
 	private CommanderCommand command;
 	private CommandParser parser;
-	private TypeResolver<?> resolver;
+	private TypeResolver resolver;
 	
-	public CommanderExecutor(CommanderCommand command, TypeResolver<?> resolver) {
+	public CommanderExecutor(CommanderCommand command, TypeResolver resolver) {
 		this.command = command;
 		this.parser = new CommandParser();
 		this.resolver = resolver;

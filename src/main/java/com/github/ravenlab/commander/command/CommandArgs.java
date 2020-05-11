@@ -5,21 +5,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.github.ravenlab.commander.player.CommanderPlayer;
 import com.github.ravenlab.commander.resolver.TypeResolver;
+import com.github.ravenlab.commander.transform.DoubleTransformer;
+import com.github.ravenlab.commander.transform.IntegerTransformer;
+import com.github.ravenlab.commander.transform.PlayerTransformer;
 import com.github.ravenlab.commander.transform.Transformer;
+import com.github.ravenlab.commander.transform.WorldTransformer;
+import com.github.ravenlab.commander.world.CommanderWorld;
 
 public class CommandArgs {
 
 	private List<String> args;
-	private TypeResolver<?> resolver;
 	private Map<Class<?>, Transformer<?>> transformerMap;
 	
-	public CommandArgs(List<String> args, TypeResolver<?> resolver) {
+	public CommandArgs(List<String> args, TypeResolver resolver) {
 		this.args = args;
-		this.resolver = resolver;
-		this.transformerMap = new HashMap<>();
+		this.transformerMap = this.registerTransformers(resolver);
 	}
-	
+
 	public <T> Optional<T> getArg(Class<T> clazz, int index) {
 		if(isOutOfBounds(index)) {
 			return Optional.empty();
@@ -48,5 +52,14 @@ public class CommandArgs {
 		}
 		
 		return Optional.of((T) transformer.transform(arg));
+	}
+	
+	private Map<Class<?>, Transformer<?>> registerTransformers(TypeResolver resolver) {
+		Map<Class<?>, Transformer<?>> transformers = new HashMap<>();
+		transformers.put(CommanderPlayer.class, new PlayerTransformer(resolver));
+		transformers.put(CommanderWorld.class, new WorldTransformer(resolver));
+		transformers.put(Integer.class, new IntegerTransformer());
+		transformers.put(Double.class, new DoubleTransformer());
+		return transformers;
 	}
 }

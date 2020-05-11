@@ -6,15 +6,19 @@ import com.github.ravenlab.commander.resolver.TypeResolver;
 
 public abstract class Transformer<T> {
 
-	private TypeResolver<T> resolver;
+	private TypeResolver resolver;
 	
-	public Transformer(TypeResolver<T> resolver) {
+	public Transformer() {
+		this(null);
+	}
+	
+	public Transformer(TypeResolver resolver) {
 		this.resolver = resolver;
 	}
 	
 	public abstract Optional<T> transform(String arg);
 	
-	public TypeResolver<T> getResolver() {
+	public TypeResolver getResolver() {
 		return this.resolver;
 	}
 }

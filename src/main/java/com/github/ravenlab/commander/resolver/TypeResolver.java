@@ -3,9 +3,12 @@ package com.github.ravenlab.commander.resolver;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface TypeResolver<T> {
+import com.github.ravenlab.commander.player.CommanderPlayer;
+import com.github.ravenlab.commander.world.CommanderWorld;
 
-	public Optional<T> getPlayer(String name);
-	public Optional<T> getPlayer(UUID uuid);
-	
+public interface TypeResolver {
+
+	public Optional<CommanderPlayer<?>> getPlayer(String name);
+	public Optional<CommanderPlayer<?>> getPlayer(UUID uuid);
+	public Optional<CommanderWorld<?>> getWorld(String name);
 }
