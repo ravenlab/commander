@@ -54,6 +54,10 @@ public class CommandArgs {
 		return Optional.of((T) transformer.transform(arg));
 	}
 	
+	public int size() {
+		return this.args.size();
+	}
+	
 	private Map<Class<?>, Transformer<?>> registerTransformers(TypeResolver resolver) {
 		Map<Class<?>, Transformer<?>> transformers = new HashMap<>();
 		transformers.put(CommanderPlayer.class, new PlayerTransformer(resolver));
