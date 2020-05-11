@@ -95,11 +95,13 @@ public abstract class CommandRegistrar<T, E> {
 		}
 		
 		String name = found.value();
+		String lowerName = name.toLowerCase();
+		
 		Collection<String> aliases = new HashSet<>();
 		for(String alias : found.aliases()) {
 			aliases.add(alias.toLowerCase());
 		}
-		aliases.add(name.toLowerCase());
+		aliases.add(lowerName);
 		
 		
 		String permission = found.permission();
@@ -111,7 +113,7 @@ public abstract class CommandRegistrar<T, E> {
 			noPermissionMessage = ChatColor.translateAlternateColorCodes('&', noPermissionMessage);
 		}
 		
-		return new CommandData(name, aliases, permission, noPermissionMessage);
+		return new CommandData(lowerName, aliases, permission, noPermissionMessage);
 	}
 	
 	protected RegistrationStatus getStatus(CommandData data, Collection<String> aliases) {
