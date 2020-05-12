@@ -45,109 +45,109 @@ public abstract class CommandRegistrar<T, E> {
 				registeredAliases.add(alias);
 			}
 		}
-		
+
 		this.bootstrapCommand(plugin, command, data);
 		RegistrationStatus status = this.getStatus(data, registeredAliases);
 		return new RegistrationData(registeredAliases, status);
 	}
-	
+
 	public RegistrationData register(T plugin, CommanderCommand command) {
 		return this.register(plugin, command, false);
 	}
-	
+
 	public boolean unregister(T plugin) {
 		Optional<Collection<String>> commands = this.getCommands(plugin);
 		this.tryToUnregister(commands);
 		return this.removePluginCommands(plugin);
 	}
-	
+
 	public boolean unregister(T plugin, String... commandsToUnregister) {
 		Collection<String> commands = Arrays.asList(commandsToUnregister);
 		this.tryToUnregister(commands);
 		return this.removePluginCommands(plugin, commands);
 	}
-	
-	protected Optional<Collection<String>> getCommands(T plugin) {
+
+	public Optional<Collection<String>> getCommands(T plugin) {
 		Collection<String> commands = this.pluginCommands.get(plugin);
 		if(commands == null) {
 			return Optional.empty();
 		}
-		
+
 		return Optional.of(Collections.unmodifiableCollection(commands));
 	}
-	
+
 	private boolean tryToUnregister(Optional<Collection<String>> commands) {
 		if(commands.isPresent()) {
 			return this.tryToUnregister(commands.get());
 		}
-		
+
 		return false;
 	}
-	
+
 	private boolean removePluginCommands(T plugin) {
 		return this.pluginCommands.remove(plugin) != null;
 	}
-	
+
 	private boolean removePluginCommands(T plugin, Collection<String> commands) {
 		Collection<String> pluginCommands = this.pluginCommands.get(plugin);
 		return pluginCommands.removeAll(commands);
 	}
-	
+
 	private void bootstrapCommand(T plugin, CommanderCommand command, CommandData data) {
 		Collection<String> aliases = data.getAliases();
 		this.addPluginCommands(plugin, aliases);
 		this.injectCommand(command, data);
 	}
-	
+
 	private void addPluginCommands(T plugin, Collection<String> registeredCommands) {
 		Collection<String> cmds = this.pluginCommands.get(plugin);
 		if(cmds == null) {
 			cmds = new HashSet<>();
 			this.pluginCommands.put(plugin, cmds);
 		}
-		
+
 		cmds.addAll(registeredCommands);
 	}
-	
+
 	private void injectCommand(CommanderCommand command, CommandData data) {
 		Guice.createInjector(new CommandModule(command, data));
 	}
-	
+
 	private CommandData parseCommandData(CommanderCommand command) {
 		Command found = null;
-		
+
 		for(Annotation anno : command.getClass().getAnnotations()) {
 			if(anno.getClass().equals(Command.class)) {
 				found = (Command) anno;
 			}
 		}
-		
+
 		if(found == null) {
 			return null;
 		}
-		
+
 		String name = found.value();
 		String lowerName = name.toLowerCase();
-		
+
 		Collection<String> aliases = new HashSet<>();
 		for(String alias : found.aliases()) {
 			aliases.add(alias.toLowerCase());
 		}
 		aliases.add(lowerName);
-		
-		
+
+
 		String permission = found.permission();
 		String noPermissionMessage = found.noPermissionMessage();
-		
+
 		if(noPermissionMessage.equals("")) {
 			noPermissionMessage = ChatColor.translateAlternateColorCodes('&', NO_PERMISSION_MESSAGE);
 		} else {
 			noPermissionMessage = ChatColor.translateAlternateColorCodes('&', noPermissionMessage);
 		}
-		
+
 		return new CommandData(lowerName, aliases, permission, noPermissionMessage);
 	}
-	
+
 	private RegistrationStatus getStatus(CommandData data, Collection<String> aliases) {
 		if(aliases.size() == 0) {
 			return RegistrationStatus.FAILED;
