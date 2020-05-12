@@ -1,4 +1,4 @@
-package com.github.ravenlab.commander.command.bukkit;
+package com.github.ravenlab.commander.command.platform.bukkit;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
