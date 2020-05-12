@@ -96,7 +96,7 @@ public abstract class CommandRegistrar<T, E> {
 	private void bootstrapCommand(T plugin, CommanderCommand command, CommandData data) {
 		Collection<String> aliases = data.getAliases();
 		this.addPluginCommands(plugin, aliases);
-		this.injectCommand(command, data);
+		this.injectCommand(command);
 	}
 
 	private void addPluginCommands(T plugin, Collection<String> registeredCommands) {
@@ -109,8 +109,12 @@ public abstract class CommandRegistrar<T, E> {
 		cmds.addAll(registeredCommands);
 	}
 
-	private void injectCommand(CommanderCommand command, CommandData data) {
+	private void injectCommand(CommanderCommand command) {
+		CommandData data = this.parseCommandData(command);
 		Guice.createInjector(new CommandModule(command, data));
+		for(CommanderCommand child : command.getChildren()) {
+			injectCommand(child);
+		}
 	}
 
 	private CommandData parseCommandData(CommanderCommand command) {
