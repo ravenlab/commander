@@ -2,7 +2,7 @@ package com.github.ravenlab.commander.command;
 
 import java.util.Arrays;
 
-import com.github.ravenlab.commander.command.parser.CommandParser;
+import com.github.ravenlab.commander.command.parser.CommandArgParser;
 import com.github.ravenlab.commander.command.parser.ParserData;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.sender.CommanderSender;
@@ -10,12 +10,12 @@ import com.github.ravenlab.commander.sender.CommanderSender;
 public class CommanderExecutor {
 
 	private CommanderCommand command;
-	private CommandParser parser;
+	private CommandArgParser parser;
 	private TypeResolver resolver;
 	
 	public CommanderExecutor(CommanderCommand command, TypeResolver resolver) {
 		this.command = command;
-		this.parser = new CommandParser();
+		this.parser = new CommandArgParser();
 		this.resolver = resolver;
 	}
 	

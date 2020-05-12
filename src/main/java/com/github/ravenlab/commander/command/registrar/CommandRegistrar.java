@@ -1,6 +1,5 @@
 package com.github.ravenlab.commander.command.registrar;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,21 +9,21 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 
-import com.github.ravenlab.commander.command.Command;
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
-import com.github.ravenlab.commander.inject.CommandModule;
-import com.github.ravenlab.commander.util.ChatColor;
-import com.google.inject.Guice;
+import com.github.ravenlab.commander.command.parser.CommandDataParser;
+import com.github.ravenlab.commander.inject.CommandInjector;
 
 public abstract class CommandRegistrar<T, E> {
-
-	private static final String NO_PERMISSION_MESSAGE = "&cYou do not have permission to execute that command!";
 	
 	private Map<T, Collection<String>> pluginCommands;
+	private CommandDataParser dataParser;
+	private CommandInjector injector;
 	
 	public CommandRegistrar() {
 		this.pluginCommands = new HashMap<>();
+		this.dataParser = new CommandDataParser();
+		this.injector = new CommandInjector();
 	}
 	
 	protected abstract boolean tryToRegister(String alias, boolean forceRegister, E command);
@@ -33,7 +32,7 @@ public abstract class CommandRegistrar<T, E> {
 	
 	public RegistrationData register(T plugin, CommanderCommand command, boolean forceRegister) {
 		Collection<String> registeredAliases = new ArrayList<>();
-		CommandData data = this.parseCommandData(command);
+		CommandData data = this.dataParser.parse(command);
 		if(data == null) {
 			return new RegistrationData(registeredAliases, RegistrationStatus.NO_ANNOTATION);
 		}
@@ -100,7 +99,7 @@ public abstract class CommandRegistrar<T, E> {
 	private void bootstrapCommand(T plugin, CommanderCommand command, CommandData data) {
 		Collection<String> aliases = data.getAliases();
 		this.addPluginCommands(plugin, aliases);
-		this.injectCommand(command);
+		this.injector.inject(command);
 	}
 
 	private void addPluginCommands(T plugin, Collection<String> registeredCommands) {
@@ -111,49 +110,6 @@ public abstract class CommandRegistrar<T, E> {
 		}
 
 		cmds.addAll(registeredCommands);
-	}
-
-	private void injectCommand(CommanderCommand command) {
-		CommandData data = this.parseCommandData(command);
-		Guice.createInjector(new CommandModule(command, data));
-		for(CommanderCommand child : command.getChildren()) {
-			injectCommand(child);
-		}
-	}
-
-	private CommandData parseCommandData(CommanderCommand command) {
-		Command found = null;
-
-		for(Annotation anno : command.getClass().getAnnotations()) {
-			if(anno.getClass().equals(Command.class)) {
-				found = (Command) anno;
-			}
-		}
-
-		if(found == null) {
-			return null;
-		}
-
-		String name = found.value();
-		String lowerName = name.toLowerCase();
-
-		Collection<String> aliases = new HashSet<>();
-		for(String alias : found.aliases()) {
-			aliases.add(alias.toLowerCase());
-		}
-		aliases.add(lowerName);
-
-
-		String permission = found.permission();
-		String noPermissionMessage = found.noPermissionMessage();
-
-		if(noPermissionMessage.equals("")) {
-			noPermissionMessage = ChatColor.translateAlternateColorCodes('&', NO_PERMISSION_MESSAGE);
-		} else {
-			noPermissionMessage = ChatColor.translateAlternateColorCodes('&', noPermissionMessage);
-		}
-
-		return new CommandData(lowerName, aliases, permission, noPermissionMessage);
 	}
 
 	private RegistrationStatus getStatus(CommandData data, Collection<String> aliases) {
