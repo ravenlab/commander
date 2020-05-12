@@ -12,18 +12,13 @@ import java.util.Optional;
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.command.parser.CommandDataParser;
-import com.github.ravenlab.commander.inject.CommandInjector;
 
 public abstract class CommandRegistrar<T, E> {
 	
 	private Map<T, Collection<String>> pluginCommands;
-	private CommandDataParser dataParser;
-	private CommandInjector injector;
 	
 	public CommandRegistrar() {
 		this.pluginCommands = new HashMap<>();
-		this.dataParser = new CommandDataParser();
-		this.injector = new CommandInjector();
 	}
 	
 	protected abstract boolean tryToRegister(String alias, boolean forceRegister, E command);
@@ -32,7 +27,7 @@ public abstract class CommandRegistrar<T, E> {
 	
 	public RegistrationData register(T plugin, CommanderCommand command, boolean forceRegister) {
 		Collection<String> registeredAliases = new ArrayList<>();
-		CommandData data = this.dataParser.parse(command);
+		CommandData data = command.getData();
 		if(data == null) {
 			return new RegistrationData(registeredAliases, RegistrationStatus.NO_ANNOTATION);
 		}
@@ -99,7 +94,6 @@ public abstract class CommandRegistrar<T, E> {
 	private void bootstrapCommand(T plugin, CommanderCommand command, CommandData data) {
 		Collection<String> aliases = data.getAliases();
 		this.addPluginCommands(plugin, aliases);
-		this.injector.inject(command);
 	}
 
 	private void addPluginCommands(T plugin, Collection<String> registeredCommands) {

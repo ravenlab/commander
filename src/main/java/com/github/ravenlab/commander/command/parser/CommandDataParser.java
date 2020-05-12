@@ -10,7 +10,7 @@ import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.util.ChatColor;
 
 public class CommandDataParser {
-
+	
 	private static final String NO_PERMISSION_MESSAGE = "&cYou do not have permission to execute that command!";
 	
 	public CommandData parse(CommanderCommand command) {

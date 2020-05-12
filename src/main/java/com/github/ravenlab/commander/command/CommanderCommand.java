@@ -7,24 +7,21 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.github.ravenlab.commander.inject.CommandInjector;
+import com.github.ravenlab.commander.command.parser.CommandDataParser;
 import com.github.ravenlab.commander.sender.CommanderSender;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 public abstract class CommanderCommand {
 	
-	@Inject
-	@Named("data")
+	private CommandDataParser dataParser;
 	private CommandData data;
 	private Set<CommanderCommand> childrenSet;
 	private Map<String, CommanderCommand> childrenMap;
-	private CommandInjector injector;
 	
 	public CommanderCommand() {
+		this.dataParser = new CommandDataParser();
+		this.data = this.dataParser.parse(this);
 		this.childrenSet = new HashSet<>();
 		this.childrenMap = new HashMap<>();
-		this.injector = new CommandInjector();
 	}
 	
 	public abstract void doCommand(CommanderSender<?> sender, String name, CommandArgs arg);
@@ -42,7 +39,6 @@ public abstract class CommanderCommand {
 	}
 	
 	public CommanderCommand addChild(CommanderCommand child) {
-		this.injector.inject(child);
 		this.childrenSet.add(child);
 		
 		Collection<String> aliases = child.getData().getAliases();
