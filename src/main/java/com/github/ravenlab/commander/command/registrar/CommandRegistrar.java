@@ -90,6 +90,10 @@ public abstract class CommandRegistrar<T, E> {
 
 	private boolean removePluginCommands(T plugin, Collection<String> commands) {
 		Collection<String> pluginCommands = this.pluginCommands.get(plugin);
+		if(pluginCommands == null) {
+			return false;
+		}
+		
 		return pluginCommands.removeAll(commands);
 	}
 
