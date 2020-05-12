@@ -25,20 +25,6 @@ public class BukkitCommandRegistrar extends CommandRegistrar<Plugin, Command> {
 	}
 	
 	@Override
-	public boolean unregister(Plugin plugin) {
-		Collection<String> commands = this.getCommands(plugin);
-		if(commands == null) {
-			return false;
-		}
-		
-		for(String cmd : commands) {
-			this.knownCommands.remove(cmd);
-		}
-		
-		return this.removePluginCommands(plugin);
-	}
-	
-	@Override
 	protected boolean tryToRegister(String alias, boolean forceRegister, Command command) {
 		if(this.knownCommands.containsKey(alias) && !forceRegister) {
 			return false;
@@ -46,6 +32,19 @@ public class BukkitCommandRegistrar extends CommandRegistrar<Plugin, Command> {
 			this.knownCommands.put(alias, command);
 			return true;
 		}
+	}
+	
+	@Override
+	protected boolean tryToUnregister(Collection<String> commands) {
+		boolean modified = false;
+		for(String cmd : commands) {
+			Command knownCommand = this.knownCommands.remove(cmd);
+			if(knownCommand != null) {
+				modified = true;
+			}
+		}
+		
+		return modified;
 	}
 	
 	@Override

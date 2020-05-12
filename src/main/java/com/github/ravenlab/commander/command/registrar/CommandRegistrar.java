@@ -2,11 +2,13 @@ package com.github.ravenlab.commander.command.registrar;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 
 import com.github.ravenlab.commander.command.Command;
 import com.github.ravenlab.commander.command.CommandData;
@@ -25,8 +27,8 @@ public abstract class CommandRegistrar<T, E> {
 		this.pluginCommands = new HashMap<>();
 	}
 	
-	public abstract boolean unregister(T plugin);
 	protected abstract boolean tryToRegister(String alias, boolean forceRegister, E command);
+	protected abstract boolean tryToUnregister(Collection<String> commands);
 	protected abstract E createCommandWrapper(CommandData data, CommanderCommand command);
 	
 	public RegistrationData register(T plugin, CommanderCommand command, boolean forceRegister) {
@@ -53,12 +55,42 @@ public abstract class CommandRegistrar<T, E> {
 		return this.register(plugin, command, false);
 	}
 	
-	protected Collection<String> getCommands(T plugin) {
-		return Collections.unmodifiableCollection(this.pluginCommands.get(plugin));
+	public boolean unregister(T plugin) {
+		Optional<Collection<String>> commands = this.getCommands(plugin);
+		this.tryToUnregister(commands);
+		return this.removePluginCommands(plugin);
 	}
 	
-	protected boolean removePluginCommands(T plugin) {
+	public boolean unregister(T plugin, String... commandsToUnregister) {
+		Collection<String> commands = Arrays.asList(commandsToUnregister);
+		this.tryToUnregister(commands);
+		return this.removePluginCommands(plugin, commands);
+	}
+	
+	protected Optional<Collection<String>> getCommands(T plugin) {
+		Collection<String> commands = this.pluginCommands.get(plugin);
+		if(commands == null) {
+			return Optional.empty();
+		}
+		
+		return Optional.of(Collections.unmodifiableCollection(commands));
+	}
+	
+	private boolean tryToUnregister(Optional<Collection<String>> commands) {
+		if(commands.isPresent()) {
+			return this.tryToUnregister(commands.get());
+		}
+		
+		return false;
+	}
+	
+	private boolean removePluginCommands(T plugin) {
 		return this.pluginCommands.remove(plugin) != null;
+	}
+	
+	private boolean removePluginCommands(T plugin, Collection<String> commands) {
+		Collection<String> pluginCommands = this.pluginCommands.get(plugin);
+		return pluginCommands.removeAll(commands);
 	}
 	
 	private void bootstrapCommand(T plugin, CommanderCommand command, CommandData data) {
@@ -81,7 +113,7 @@ public abstract class CommandRegistrar<T, E> {
 		Guice.createInjector(new CommandModule(command, data));
 	}
 	
-	protected CommandData parseCommandData(CommanderCommand command) {
+	private CommandData parseCommandData(CommanderCommand command) {
 		Command found = null;
 		
 		for(Annotation anno : command.getClass().getAnnotations()) {
@@ -116,7 +148,7 @@ public abstract class CommandRegistrar<T, E> {
 		return new CommandData(lowerName, aliases, permission, noPermissionMessage);
 	}
 	
-	protected RegistrationStatus getStatus(CommandData data, Collection<String> aliases) {
+	private RegistrationStatus getStatus(CommandData data, Collection<String> aliases) {
 		if(aliases.size() == 0) {
 			return RegistrationStatus.FAILED;
 		} else if(aliases.size() != data.getAliases().size()) {
