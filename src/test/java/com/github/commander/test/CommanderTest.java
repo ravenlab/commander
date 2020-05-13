@@ -25,7 +25,7 @@ public class CommanderTest {
 	}
 	
 	@Test
-	public void TestCommander() {
+	public void testRegisterNoneForce() {
 		TestPlugin plugin = new TestPlugin();
 		TestCommander commander = new TestCommander(false);
 		CommanderCommand command = new ParentCommand();
