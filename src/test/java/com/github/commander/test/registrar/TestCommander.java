@@ -1,7 +1,5 @@
 package com.github.commander.test.registrar;
 
-import java.util.Collection;
-
 import com.github.commander.test.platform.TestCommand;
 import com.github.commander.test.platform.TestPlugin;
 import com.github.ravenlab.commander.Commander;
@@ -16,12 +14,12 @@ public class TestCommander extends Commander<TestPlugin, TestCommand> {
 	}
 	
 	@Override
-	protected boolean tryToRegister(String alias, boolean forceRegister, TestCommand command) {
-		return this.mockStatus;
+	protected String registerAlias(TestPlugin plugin, TestCommand command, String alias, boolean forceRegister) {
+		return alias;
 	}
 
 	@Override
-	protected boolean tryToUnregister(Collection<String> commands) {
+	protected boolean unregisterAlias(String command) {
 		return this.mockStatus;
 	}
 
@@ -31,4 +29,9 @@ public class TestCommander extends Commander<TestPlugin, TestCommand> {
 		return null;
 	}
 
+	@Override
+	protected String getPluginName(TestPlugin plugin) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

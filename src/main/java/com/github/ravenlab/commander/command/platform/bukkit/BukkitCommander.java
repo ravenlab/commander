@@ -1,7 +1,6 @@
 package com.github.ravenlab.commander.command.platform.bukkit;
 
 import java.lang.reflect.Field;
-import java.util.Collection;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -24,31 +23,29 @@ public class BukkitCommander extends Commander<Plugin, Command> {
 	}
 	
 	@Override
-	protected boolean tryToRegister(String alias, boolean forceRegister, Command command) {
+	protected String registerAlias(Plugin plugin, Command command, String alias, boolean forceRegister) {
+		String registeredAlias = alias;
 		if(this.knownCommands.containsKey(alias) && !forceRegister) {
-			return false;
-		} else {
-			this.knownCommands.put(alias, command);
-			return true;
+			return registeredAlias = plugin.getName().toLowerCase() + ":" + alias;
 		}
+		
+		this.knownCommands.put(registeredAlias, command);
+		return registeredAlias;
 	}
 	
 	@Override
-	protected boolean tryToUnregister(Collection<String> commands) {
-		boolean modified = false;
-		for(String cmd : commands) {
-			Command knownCommand = this.knownCommands.remove(cmd);
-			if(knownCommand != null) {
-				modified = true;
-			}
-		}
-		
-		return modified;
+	protected boolean unregisterAlias(String command) {
+		return this.knownCommands.remove(command) != null;
 	}
 	
 	@Override
 	protected Command createCommandWrapper(CommandData data, CommanderCommand command) {
 		return new BukkitCommandWrapper(data, command);
+	}
+	
+	@Override
+	protected String getPluginName(Plugin plugin) {
+		return plugin.getName();
 	}
 	
 	@SuppressWarnings("unchecked")
