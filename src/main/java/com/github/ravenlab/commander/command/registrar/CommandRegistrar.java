@@ -11,7 +11,6 @@ import java.util.Optional;
 
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
-import com.github.ravenlab.commander.command.parser.CommandDataParser;
 
 public abstract class CommandRegistrar<T, E> {
 	

@@ -1,6 +1,5 @@
 package com.github.ravenlab.commander.command.parser;
 
-import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -14,18 +13,12 @@ public class CommandDataParser {
 	private static final String NO_PERMISSION_MESSAGE = "&cYou do not have permission to execute that command!";
 	
 	public CommandData parse(CommanderCommand command) {
-		Command found = null;
-
-		for(Annotation anno : command.getClass().getAnnotations()) {
-			if(anno.getClass().equals(Command.class)) {
-				found = (Command) anno;
-			}
-		}
-
-		if(found == null) {
+		Command[] cmdAr = command.getClass().getAnnotationsByType(Command.class);
+		if(cmdAr.length == 0) {
 			return null;
 		}
-
+		
+		Command found = cmdAr[0];
 		String name = found.value();
 		String lowerName = name.toLowerCase();
 

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 public @interface Command {
 
 	String value();
-	String[] aliases();
+	String[] aliases() default {};
 	String permission() default "";
 	String noPermissionMessage() default "";
 	
