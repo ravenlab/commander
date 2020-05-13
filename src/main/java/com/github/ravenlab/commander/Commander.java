@@ -1,4 +1,4 @@
-package com.github.ravenlab.commander.command.registrar;
+package com.github.ravenlab.commander;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,12 +11,14 @@ import java.util.Optional;
 
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
+import com.github.ravenlab.commander.registration.RegistrationData;
+import com.github.ravenlab.commander.registration.RegistrationStatus;
 
-public abstract class CommandRegistrar<T, E> {
+public abstract class Commander<T, E> {
 	
 	private Map<T, Collection<String>> pluginCommands;
 	
-	public CommandRegistrar() {
+	public Commander() {
 		this.pluginCommands = new HashMap<>();
 	}
 	

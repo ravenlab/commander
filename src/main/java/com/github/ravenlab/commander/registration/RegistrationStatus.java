@@ -1,4 +1,4 @@
-package com.github.ravenlab.commander.command.registrar;
+package com.github.ravenlab.commander.registration;
 
 public enum RegistrationStatus {
 

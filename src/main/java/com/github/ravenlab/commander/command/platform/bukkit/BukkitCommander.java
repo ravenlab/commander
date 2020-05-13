@@ -11,15 +11,15 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.Plugin;
 
+import com.github.ravenlab.commander.Commander;
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
-import com.github.ravenlab.commander.command.registrar.CommandRegistrar;
 
-public class BukkitCommandRegistrar extends CommandRegistrar<Plugin, Command> {
+public class BukkitCommander extends Commander<Plugin, Command> {
 	
 	private Map<String, Command> knownCommands;
 	
-	public BukkitCommandRegistrar() {
+	public BukkitCommander() {
 		this.knownCommands = this.getKnownCommands();
 	}
 	

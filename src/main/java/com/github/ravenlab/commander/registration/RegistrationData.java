@@ -1,4 +1,4 @@
-package com.github.ravenlab.commander.command.registrar;
+package com.github.ravenlab.commander.registration;
 
 import java.util.Collection;
 import java.util.Collections;

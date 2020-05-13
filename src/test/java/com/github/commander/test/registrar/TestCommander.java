@@ -4,14 +4,14 @@ import java.util.Collection;
 
 import com.github.commander.test.platform.TestCommand;
 import com.github.commander.test.platform.TestPlugin;
+import com.github.ravenlab.commander.Commander;
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
-import com.github.ravenlab.commander.command.registrar.CommandRegistrar;
 
-public class TestCommandRegistrar extends CommandRegistrar<TestPlugin, TestCommand> {
+public class TestCommander extends Commander<TestPlugin, TestCommand> {
 
 	private boolean mockStatus;
-	public TestCommandRegistrar(boolean mockStatus) {
+	public TestCommander(boolean mockStatus) {
 		this.mockStatus = mockStatus;
 	}
 	
