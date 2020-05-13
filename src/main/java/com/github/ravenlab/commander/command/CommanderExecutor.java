@@ -22,7 +22,7 @@ public class CommanderExecutor {
 	public void execute(CommanderSender<?> sender, String label, String[] args) {
 		ParserData parserData = this.parser.parse(this.command, args);
 		CommanderCommand commandToExecute = parserData.getCommand();
-		CommandData commandData = commandToExecute.getData();
+		CommandData commandData = commandToExecute.getData().get();
 		
 		String[] executeArgs = parserData.getArgs();
 		String permission = commandData.getPermission();

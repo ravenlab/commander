@@ -5,13 +5,15 @@ import com.github.ravenlab.commander.command.CommandArgs;
 import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.sender.CommanderSender;
 
-@Command(value = "parent")
+@Command(
+	value = "parent", 
+	aliases= {"father", "mother"},
+	permission="parent.use", 
+	noPermissionMessage="&cNo permission for that action"
+)
 public class ParentCommand extends CommanderCommand {
 	
 	@Override
-	public void doCommand(CommanderSender<?> sender, String name, CommandArgs arg) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void doCommand(CommanderSender<?> sender, String name, CommandArgs arg) {}
 
 }

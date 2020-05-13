@@ -9,9 +9,6 @@ import com.github.ravenlab.commander.sender.CommanderSender;
 public class GrandChildCommand extends CommanderCommand {
 
 	@Override
-	public void doCommand(CommanderSender<?> sender, String name, CommandArgs arg) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void doCommand(CommanderSender<?> sender, String name, CommandArgs arg) {}
 
 }

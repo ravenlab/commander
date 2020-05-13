@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import com.github.ravenlab.commander.command.parser.CommandDataParser;
@@ -13,7 +14,7 @@ import com.github.ravenlab.commander.sender.CommanderSender;
 public abstract class CommanderCommand {
 	
 	private CommandDataParser dataParser;
-	private CommandData data;
+	private Optional<CommandData> data;
 	private Set<CommanderCommand> childrenSet;
 	private Map<String, CommanderCommand> childrenMap;
 	
@@ -26,7 +27,7 @@ public abstract class CommanderCommand {
 	
 	public abstract void doCommand(CommanderSender<?> sender, String name, CommandArgs arg);
 	
-	public CommandData getData() {
+	public Optional<CommandData> getData() {
 		return this.data;
 	}
 	
@@ -37,15 +38,18 @@ public abstract class CommanderCommand {
 	public CommanderCommand getChildByName(String name) {
 		return this.childrenMap.get(name.toLowerCase());
 	}
-	
+
 	public CommanderCommand addChild(CommanderCommand child) {
-		this.childrenSet.add(child);
-		
-		Collection<String> aliases = child.getData().getAliases();
-		for(String alias : aliases) {
-			this.childrenMap.put(alias, child);
+		Optional<CommandData> childData = child.getData();
+
+		if(childData.isPresent()) {
+			this.childrenSet.add(child);
+			Collection<String> aliases = childData.get().getAliases();
+			for(String alias : aliases) {
+				this.childrenMap.put(alias, child);
+			}
 		}
-		
+
 		return this;
 	}
 }

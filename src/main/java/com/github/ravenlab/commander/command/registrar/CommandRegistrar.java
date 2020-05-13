@@ -26,11 +26,12 @@ public abstract class CommandRegistrar<T, E> {
 	
 	public RegistrationData register(T plugin, CommanderCommand command, boolean forceRegister) {
 		Collection<String> registeredAliases = new ArrayList<>();
-		CommandData data = command.getData();
-		if(data == null) {
+		Optional<CommandData> dataOptional = command.getData();
+		if(!dataOptional.isPresent()) {
 			return new RegistrationData(registeredAliases, RegistrationStatus.NO_ANNOTATION);
 		}
 		
+		CommandData data = dataOptional.get();
 		E wrapperCommand = this.createCommandWrapper(data, command);
 		Collection<String> aliases = data.getAliases();
 		for(String alias : aliases) {
