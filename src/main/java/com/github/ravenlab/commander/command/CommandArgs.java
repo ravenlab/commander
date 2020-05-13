@@ -24,21 +24,24 @@ public class CommandArgs {
 		this.transformerMap = this.registerTransformers(resolver);
 	}
 
+	public Optional<String> getArg(int index) {
+		return this.getArg(String.class, index);
+	}
+	
+	@SuppressWarnings("unchecked")
 	public <T> Optional<T> getArg(Class<T> clazz, int index) {
 		if(isOutOfBounds(index)) {
-			return Optional.empty();
-		} else if(!isType(clazz, index)) {
 			return Optional.empty();
 		}
 		
 		String arg = this.args.get(index);
+		if(clazz.equals(String.class)) {
+			return Optional.of((T) arg);
+		}
+		
 		return this.transform(clazz, arg);
 	}
 	
-	private boolean isType(Class<?> clazz, int index) {
-		Class<?> objClazz = this.args.get(index).getClass();
-		return clazz.isAssignableFrom(objClazz);
-	}
 	
 	private boolean isOutOfBounds(int index) {
 		return index < 0 || index > args.size() - 1;
