@@ -6,7 +6,7 @@ import com.github.ravenlab.commander.command.CommanderCommand;
 
 public class ChildCommandParser {
 
-	public ParserData parse(CommanderCommand cmd, String[] args) {
+	public ChildCommandParserData parse(CommanderCommand cmd, String[] args) {
 		CommanderCommand root = cmd;
 		if(args.length > 0) {
 			String first = args[0].toLowerCase();
@@ -21,6 +21,6 @@ public class ChildCommandParser {
 			}
 		}
 
-		return new ParserData(root, args);
+		return new ChildCommandParserData(root, args);
 	}
 }

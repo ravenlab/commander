@@ -3,7 +3,7 @@ package com.github.ravenlab.commander.command;
 import java.util.Arrays;
 
 import com.github.ravenlab.commander.command.parser.ChildCommandParser;
-import com.github.ravenlab.commander.command.parser.ParserData;
+import com.github.ravenlab.commander.command.parser.ChildCommandParserData;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.sender.CommanderSender;
 
@@ -20,7 +20,7 @@ public class CommanderExecutor {
 	}
 	
 	public void execute(CommanderSender<?> sender, String label, String[] args) {
-		ParserData parserData = this.parser.parse(this.command, args);
+		ChildCommandParserData parserData = this.parser.parse(this.command, args);
 		CommanderCommand commandToExecute = parserData.getCommand();
 		CommandData commandData = commandToExecute.getData().get();
 		

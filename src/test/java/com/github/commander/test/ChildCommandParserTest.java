@@ -9,7 +9,7 @@ import com.github.commander.test.command.GrandChildCommand;
 import com.github.commander.test.command.ParentCommand;
 import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.command.parser.ChildCommandParser;
-import com.github.ravenlab.commander.command.parser.ParserData;
+import com.github.ravenlab.commander.command.parser.ChildCommandParserData;
 
 public class ChildCommandParserTest {
 
@@ -17,7 +17,7 @@ public class ChildCommandParserTest {
 	public void testDepthZeroNoArg() {
 		CommanderCommand parent = new ParentCommand();
 		ChildCommandParser parser = new ChildCommandParser();
-		ParserData data = parser.parse(parent, new String[0]);
+		ChildCommandParserData data = parser.parse(parent, new String[0]);
 		assertTrue(data.getCommand().getData().get().getName().equals("parent"));
 		assertTrue(data.getArgs().length == 0);
 	}
@@ -26,7 +26,7 @@ public class ChildCommandParserTest {
 	public void testDepthZeroWithArg() {
 		CommanderCommand parent = new ParentCommand();
 		ChildCommandParser parser = new ChildCommandParser();
-		ParserData data = parser.parse(parent, new String[] {"test"});
+		ChildCommandParserData data = parser.parse(parent, new String[] {"test"});
 		assertTrue(data.getCommand().getData().get().getName().equals("parent"));
 		assertTrue(data.getArgs().length == 1);
 		assertTrue(data.getArgs()[0].equals("test"));
@@ -37,7 +37,7 @@ public class ChildCommandParserTest {
 		CommanderCommand parent = new ParentCommand();
 		parent.addChild(new ChildCommand());
 		ChildCommandParser parser = new ChildCommandParser();
-		ParserData data = parser.parse(parent, new String[] {"child"});
+		ChildCommandParserData data = parser.parse(parent, new String[] {"child"});
 		assertTrue(data.getCommand().getData().get().getName().equals("child"));
 		assertTrue(data.getArgs().length == 0);
 	}
@@ -47,7 +47,7 @@ public class ChildCommandParserTest {
 		CommanderCommand parent = new ParentCommand();
 		parent.addChild(new ChildCommand());
 		ChildCommandParser parser = new ChildCommandParser();
-		ParserData data = parser.parse(parent, new String[] {"child", "test"});
+		ChildCommandParserData data = parser.parse(parent, new String[] {"child", "test"});
 		assertTrue(data.getCommand().getData().get().getName().equals("child"));
 		assertTrue(data.getArgs().length == 1);
 		assertTrue(data.getArgs()[0].equals("test"));
@@ -61,7 +61,7 @@ public class ChildCommandParserTest {
 		parent.addChild(child);
 		child.addChild(grandChild);
 		ChildCommandParser parser = new ChildCommandParser();
-		ParserData data = parser.parse(parent, new String[] {"child", "grandchild"});
+		ChildCommandParserData data = parser.parse(parent, new String[] {"child", "grandchild"});
 		assertTrue(data.getCommand().getData().get().getName().equals("grandchild"));
 		assertTrue(data.getArgs().length == 0);
 	}
@@ -74,7 +74,7 @@ public class ChildCommandParserTest {
 		parent.addChild(child);
 		child.addChild(grandChild);
 		ChildCommandParser parser = new ChildCommandParser();
-		ParserData data = parser.parse(parent, new String[] {"child", "grandchild", "test"});
+		ChildCommandParserData data = parser.parse(parent, new String[] {"child", "grandchild", "test"});
 		assertTrue(data.getCommand().getData().get().getName().equals("grandchild"));
 		assertTrue(data.getArgs().length == 1);
 		assertTrue(data.getArgs()[0].equals("test"));

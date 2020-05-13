@@ -2,12 +2,12 @@ package com.github.ravenlab.commander.command.parser;
 
 import com.github.ravenlab.commander.command.CommanderCommand;
 
-public class ParserData {
+public class ChildCommandParserData {
 
 	private CommanderCommand command;
 	private String[] args;
 	
-	public ParserData(CommanderCommand command, String[] args) {
+	public ChildCommandParserData(CommanderCommand command, String[] args) {
 		this.command = command;
 		this.args = args;
 	}
