@@ -54,7 +54,12 @@ public class CommandArgs {
 			return Optional.empty();
 		}
 		
-		return Optional.of((T) transformer.transform(arg));
+		Optional<?> transformed = transformer.transform(arg);
+		if(transformed.isPresent()) {
+			return Optional.of((T) transformed.get());
+		}
+		
+		return Optional.empty();
 	}
 	
 	public int size() {
