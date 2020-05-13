@@ -30,7 +30,7 @@ public abstract class CommandRegistrar<T, E> {
 		if(!dataOptional.isPresent()) {
 			return new RegistrationData(registeredAliases, RegistrationStatus.NO_ANNOTATION);
 		}
-		
+
 		CommandData data = dataOptional.get();
 		E wrapperCommand = this.createCommandWrapper(data, command);
 		Collection<String> aliases = data.getAliases();
@@ -108,7 +108,7 @@ public abstract class CommandRegistrar<T, E> {
 
 	private RegistrationStatus getStatus(CommandData data, Collection<String> aliases) {
 		if(aliases.size() == 0) {
-			return RegistrationStatus.FAILED;
+			return RegistrationStatus.REGISTERED_NONE;
 		} else if(aliases.size() != data.getAliases().size()) {
 			return RegistrationStatus.REGISTERED_SOME;
 		} else {
