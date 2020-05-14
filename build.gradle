@@ -35,6 +35,7 @@ shadowJar {
 
 dependencies {
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
 }
 
