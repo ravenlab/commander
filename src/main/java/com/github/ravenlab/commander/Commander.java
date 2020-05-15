@@ -20,7 +20,7 @@ public abstract class Commander<T, E> {
 		this.pluginCommands = new HashMap<>();
 	}
 	
-	protected abstract String registerAlias(T plugin, E command, String alias, boolean forceRegister);
+	protected abstract Optional<String> registerAlias(T plugin, E command, String alias, boolean forceRegister);
 	protected abstract boolean unregisterAlias(String command);
 	protected abstract E createCommandWrapper(CommandData data, CommanderCommand command);
 	
@@ -35,8 +35,12 @@ public abstract class Commander<T, E> {
 		E wrapperCommand = this.createCommandWrapper(data, command);
 		Collection<String> aliases = data.getAliases();
 		for(String alias : aliases) {
-			String registeredAlias = this.registerAlias(plugin, wrapperCommand, alias, forceRegister);
-			registeredAliases.add(registeredAlias);
+			Optional<String> aliasOptional = this.registerAlias(plugin, wrapperCommand, alias, forceRegister);
+			if(aliasOptional.isPresent()) {
+				registeredAliases.add(aliasOptional.get());
+			} else {
+				return false;
+			}
 		}
 
 		this.addPluginCommands(plugin, registeredAliases);

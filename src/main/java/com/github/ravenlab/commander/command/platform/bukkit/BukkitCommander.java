@@ -2,6 +2,7 @@ package com.github.ravenlab.commander.command.platform.bukkit;
 
 import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -23,14 +24,18 @@ public class BukkitCommander extends Commander<Plugin, Command> {
 	}
 	
 	@Override
-	protected String registerAlias(Plugin plugin, Command command, String alias, boolean forceRegister) {
+	protected Optional<String> registerAlias(Plugin plugin, Command command, String alias, boolean forceRegister) {
 		String registeredAlias = alias;
+		if(this.knownCommands == null) {
+			return Optional.empty();
+		}
+		
 		if(this.knownCommands.containsKey(alias) && !forceRegister) {
 			registeredAlias = plugin.getName().toLowerCase() + ":" + alias;
 		}
 		
 		this.knownCommands.put(registeredAlias, command);
-		return registeredAlias;
+		return Optional.of(registeredAlias);
 	}
 	
 	@Override
@@ -53,7 +58,10 @@ public class BukkitCommander extends Commander<Plugin, Command> {
 		try {
 			Field commandField = SimpleCommandMap.class.getDeclaredField("knownCommands");
 			commandField.setAccessible(true);
-			return (Map<String, Command>) commandField.get(this.getCommandMap());
+			CommandMap commandMap = this.getCommandMap();
+			if(commandMap != null) {
+				return (Map<String, Command>) commandField.get(commandMap);
+			}
 		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
@@ -64,9 +72,18 @@ public class BukkitCommander extends Commander<Plugin, Command> {
 	private CommandMap getCommandMap() {
 		try {
 			Server server = Bukkit.getServer();
-			Field mapField = server.getClass().getDeclaredField("commandMap");
-			mapField.setAccessible(true);
-			return (CommandMap) mapField.get(server);
+			Field mapField = null;
+			for(Field field : server.getClass().getDeclaredFields()) {
+				if(field.getName().equals("commandMap")) {
+					mapField = field;
+					break;
+				}
+			}
+			
+			if(mapField != null) {
+				mapField.setAccessible(true);
+				return (CommandMap) mapField.get(server);
+			}
 		} 
 		catch (Exception e) { 
 			e.printStackTrace(); 
