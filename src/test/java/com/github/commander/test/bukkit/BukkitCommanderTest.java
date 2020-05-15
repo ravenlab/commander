@@ -24,16 +24,23 @@ import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommander;
 
 public class BukkitCommanderTest {
 
-	private static TestBukkitServer server;
+	private TestBukkitServer server;
 	
 	@Before
 	public void bootstrapServer() {
-		server = new TestBukkitServer();
-		if(Bukkit.getServer() == null) {
-			setServer(server);
-		}
+		this.server = new TestBukkitServer();
+		this.setServer(this.server);
 	}
 	
+	private void setServer(Server server) {
+		try {
+			Field serverField = Bukkit.class.getDeclaredField("server");
+			serverField.setAccessible(true);
+			serverField.set(null, server);
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@Test
 	public void testRegisterNoAnnotation() {
@@ -100,7 +107,7 @@ public class BukkitCommanderTest {
 		BukkitCommander commander = new BukkitCommander();
 		boolean registered = commander.register(plugin, command);
 		assertFalse(registered);
-		setServer(server);
+		setServer(this.server);
 	}
 	
 	@Test
@@ -197,15 +204,5 @@ public class BukkitCommanderTest {
 		Optional<Collection<String>> commands = commander.getCommands(plugin);
 		assertTrue(commands.isPresent());
 		assertTrue(commands.get().size() == 3);
-	}
-	
-	private static void setServer(Server server) {
-		try {
-			Field serverField = Bukkit.class.getDeclaredField("server");
-			serverField.setAccessible(true);
-			serverField.set(null, server);
-		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-			e.printStackTrace();
-		}
 	}
 }

@@ -3,6 +3,7 @@ package com.github.commander.test.bukkit.mock;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -53,17 +54,48 @@ import org.bukkit.util.CachedServerIcon;
 
 public class TestBukkitServer implements Server {
 
+	@SuppressWarnings("unused")
 	private CommandMap commandMap;
 	private Logger logger;
+	private Map<UUID, Player> playerUUIDMap;
+	private Map<String, Player> playerNameMap;
+	private Map<String, World> worldMap;
 	
 	public TestBukkitServer() {
 		this.commandMap = new SimpleCommandMap(this);
 		this.logger = Logger.getLogger(this.getClass().getName());
+		this.playerUUIDMap = new HashMap<>();
+		this.playerNameMap = new HashMap<>();
+		this.worldMap = new HashMap<>();
 	}
 	
 	@Override
 	public Logger getLogger() {
 		return this.logger;
+	}
+	
+	@Override
+	public Player getPlayer(UUID uuid) {
+		return this.playerUUIDMap.get(uuid);
+	}
+	
+	@Override
+	public Player getPlayer(String name) {
+		return this.playerNameMap.get(name);
+	}
+	
+	public void addPlayer(Player player) {
+		this.playerUUIDMap.put(player.getUniqueId(), player);
+		this.playerNameMap.put(player.getName(), player);
+	}
+	
+	@Override
+	public World getWorld(String name) {
+		return this.worldMap.get(name);
+	}
+	
+	public void addWorld(World world) {
+		this.worldMap.put(world.getName(), world);
 	}
 	
 	@Override
@@ -223,12 +255,6 @@ public class TestBukkitServer implements Server {
 	}
 
 	@Override
-	public Player getPlayer(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Player getPlayerExact(String name) {
 		// TODO Auto-generated method stub
 		return null;
@@ -236,12 +262,6 @@ public class TestBukkitServer implements Server {
 
 	@Override
 	public List<Player> matchPlayer(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Player getPlayer(UUID id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -286,12 +306,6 @@ public class TestBukkitServer implements Server {
 	public boolean unloadWorld(World world, boolean save) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public World getWorld(String name) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
