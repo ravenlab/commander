@@ -16,8 +16,6 @@ import com.github.commander.test.bukkit.mock.TestBukkitServer;
 import com.github.commander.test.command.ChildCommand;
 import com.github.commander.test.command.NoAnnotationCommand;
 import com.github.commander.test.command.ParentCommand;
-import com.github.commander.test.platform.TestPlugin;
-import com.github.commander.test.registrar.TestCommander;
 import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommander;
 
@@ -69,6 +67,24 @@ public class BukkitCommanderTest {
 		boolean childRegistered = commander.register(plugin, child);
 		assertTrue(parentRegistered);
 		assertTrue(childRegistered);
+	}
+	
+	@Test
+	public void testRegisterWithAlias() {
+		Plugin plugin = new TestBukkitPlugin("test");
+		Plugin plugin2 = new TestBukkitPlugin("test2");
+		CommanderCommand command = new ParentCommand();
+		BukkitCommander commander = new BukkitCommander();
+		commander.register(plugin, command);
+		commander.register(plugin2, command);
+		Optional<Collection<String>> commandOptional = commander.getCommands(plugin2);
+		assertTrue(commandOptional.isPresent());
+		String first = null;
+		for(String cmd : commandOptional.get()) {
+			first = cmd;
+			break;
+		}
+		assertTrue(first.equals("test2:parent"));
 	}
 	
 	@Test
@@ -124,6 +140,28 @@ public class BukkitCommanderTest {
 		BukkitCommander commander = new BukkitCommander();
 		boolean unregistered = commander.unregister(plugin, new String[0]);
 		assertFalse(unregistered);
+	}
+	
+	@Test
+	public void testUnregisterNonExistentCommand() {
+		Plugin plugin = new TestBukkitPlugin("test");
+		CommanderCommand command = new ParentCommand();
+		BukkitCommander commander = new BukkitCommander();
+		commander.register(plugin, command);
+		boolean unregistered = commander.unregister(plugin, "doesntexist");
+		assertFalse(unregistered);
+	}
+	
+	@Test
+	public void testUnregisterWithAlias() {
+		Plugin plugin = new TestBukkitPlugin("test");
+		Plugin plugin2 = new TestBukkitPlugin("test2");
+		CommanderCommand command = new ParentCommand();
+		BukkitCommander commander = new BukkitCommander();
+		commander.register(plugin, command);
+		commander.register(plugin2, command);
+		boolean unregistered = commander.unregister(plugin2, "parent");
+		assertTrue(unregistered);
 	}
 	
 	@Test

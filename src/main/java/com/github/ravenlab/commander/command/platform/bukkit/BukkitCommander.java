@@ -26,7 +26,7 @@ public class BukkitCommander extends Commander<Plugin, Command> {
 	protected String registerAlias(Plugin plugin, Command command, String alias, boolean forceRegister) {
 		String registeredAlias = alias;
 		if(this.knownCommands.containsKey(alias) && !forceRegister) {
-			return registeredAlias = plugin.getName().toLowerCase() + ":" + alias;
+			registeredAlias = plugin.getName().toLowerCase() + ":" + alias;
 		}
 		
 		this.knownCommands.put(registeredAlias, command);
