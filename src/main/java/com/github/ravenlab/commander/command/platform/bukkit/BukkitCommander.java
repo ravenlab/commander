@@ -40,7 +40,7 @@ public class BukkitCommander extends Commander<Plugin, Command> {
 	
 	@Override
 	protected Command createCommandWrapper(CommandData data, CommanderCommand command) {
-		return new BukkitCommandWrapper(data, command);
+		return new BukkitCommandWrapper(command);
 	}
 	
 	@Override

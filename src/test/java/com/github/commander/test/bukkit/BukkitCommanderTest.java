@@ -16,6 +16,8 @@ import com.github.commander.test.bukkit.mock.TestBukkitServer;
 import com.github.commander.test.command.ChildCommand;
 import com.github.commander.test.command.NoAnnotationCommand;
 import com.github.commander.test.command.ParentCommand;
+import com.github.commander.test.platform.TestPlugin;
+import com.github.commander.test.registrar.TestCommander;
 import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommander;
 
@@ -106,6 +108,22 @@ public class BukkitCommanderTest {
 		assertTrue(parentRegistered);
 		assertTrue(commands.isPresent());
 		assertTrue(commands.get().size() == 0);
+	}
+	
+	@Test
+	public void testUnregisterNoRegisteredPlugin() {
+		Plugin plugin = new TestBukkitPlugin("test");
+		BukkitCommander commander = new BukkitCommander();
+		boolean unregistered = commander.unregister(plugin);
+		assertFalse(unregistered);
+	}
+	
+	@Test
+	public void testUnregisterNoRegisteredPluginCollection() {
+		Plugin plugin = new TestBukkitPlugin("test");
+		BukkitCommander commander = new BukkitCommander();
+		boolean unregistered = commander.unregister(plugin, new String[0]);
+		assertFalse(unregistered);
 	}
 	
 	@Test
