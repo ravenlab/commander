@@ -13,7 +13,17 @@ import com.github.ravenlab.commander.sender.CommanderSender;
 )
 public class ParentCommand extends CommanderCommand {
 	
+	private boolean ran;
+	public ParentCommand() {
+		this.ran = false;
+	}
+	
 	@Override
-	public void doCommand(CommanderSender<?> sender, String name, CommandArgs arg) {}
-
+	public void doCommand(CommanderSender<?> sender, String name, CommandArgs arg) {
+		this.ran = true;
+	}
+	
+	public boolean hasRan() {
+		return this.ran;
+	}
 }
