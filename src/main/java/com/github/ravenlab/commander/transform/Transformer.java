@@ -18,7 +18,11 @@ public abstract class Transformer<T> {
 	
 	public abstract Optional<T> transform(String arg);
 	
-	public TypeResolver getResolver() {
-		return this.resolver;
+	public Optional<TypeResolver> getResolver() {
+		if(this.resolver == null) {
+			return Optional.empty();
+		}
+		
+		return Optional.of(this.resolver);
 	}
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.junit.Test;
 
 import com.github.ravenlab.commander.transform.DoubleTransformer;
+import com.github.ravenlab.commander.transform.FloatTransformer;
 import com.github.ravenlab.commander.transform.IntegerTransformer;
 
 public class TransformerTest {
@@ -28,6 +29,33 @@ public class TransformerTest {
 	}
 	
 	@Test
+	public void doubleTransformerNoResolverTest() {
+		DoubleTransformer transformer = new DoubleTransformer();
+		assertFalse(transformer.getResolver().isPresent());
+	}
+	
+	@Test
+	public void floatTransformerTestInvalid() {
+		FloatTransformer transformer = new FloatTransformer();
+		Optional<Float> value = transformer.transform("a");
+		assertFalse(value.isPresent());
+	}
+	
+	@Test
+	public void floatTransformerTestValid() {
+		FloatTransformer transformer = new FloatTransformer();
+		Optional<Float> value = transformer.transform("1.0");
+		assertTrue(value.isPresent());
+		assertTrue(value.get() == 1.0);
+	}
+	
+	@Test
+	public void floatTransformerNoResolverTest() {
+		FloatTransformer transformer = new FloatTransformer();
+		assertFalse(transformer.getResolver().isPresent());
+	}
+	
+	@Test
 	public void integerTransformerTestInvalid() {
 		IntegerTransformer transformer = new IntegerTransformer();
 		Optional<Integer> value = transformer.transform("a");
@@ -40,5 +68,11 @@ public class TransformerTest {
 		Optional<Integer> value = transformer.transform("1");
 		assertTrue(value.isPresent());
 		assertTrue(value.get() == 1);
+	}
+	
+	@Test
+	public void integerTransformerNoResolverTest() {
+		IntegerTransformer transformer = new IntegerTransformer();
+		assertFalse(transformer.getResolver().isPresent());
 	}
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.github.ravenlab.commander.player.CommanderPlayer;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.transform.DoubleTransformer;
+import com.github.ravenlab.commander.transform.FloatTransformer;
 import com.github.ravenlab.commander.transform.IntegerTransformer;
 import com.github.ravenlab.commander.transform.PlayerTransformer;
 import com.github.ravenlab.commander.transform.Transformer;
@@ -72,6 +73,7 @@ public class CommandArgs {
 		transformers.put(CommanderWorld.class, new WorldTransformer(resolver));
 		transformers.put(Integer.class, new IntegerTransformer());
 		transformers.put(Double.class, new DoubleTransformer());
+		transformers.put(Float.class, new FloatTransformer());
 		return transformers;
 	}
 }

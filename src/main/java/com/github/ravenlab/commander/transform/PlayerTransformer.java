@@ -13,6 +13,6 @@ public class PlayerTransformer extends Transformer<CommanderPlayer<?>> {
 
 	@Override
 	public Optional<CommanderPlayer<?>> transform(String name) {
-		return this.getResolver().getPlayer(name);
+		return this.getResolver().get().getPlayer(name);
 	}
 }

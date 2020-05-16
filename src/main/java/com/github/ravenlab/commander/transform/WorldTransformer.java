@@ -13,6 +13,6 @@ public class WorldTransformer extends Transformer<CommanderWorld<?>> {
 
 	@Override
 	public Optional<CommanderWorld<?>> transform(String arg) {
-		return this.getResolver().getWorld(arg);
+		return this.getResolver().get().getWorld(arg);
 	}
 }
