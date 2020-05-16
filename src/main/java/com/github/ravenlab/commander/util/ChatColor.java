@@ -1,6 +1,7 @@
 package com.github.ravenlab.commander.util;
 
 import java.awt.Color;
+import java.util.Optional;
 
 public enum ChatColor {
 
@@ -74,8 +75,12 @@ public enum ChatColor {
 		return this.blue;
 	}
 	
-	public Color getJavaColor() {
-		return this.color;
+	public Optional<Color> getJavaColor() {
+		if(this.color != null) {
+			return Optional.of(this.color);
+		}
+		
+		return Optional.empty();
 	}
 	
 	public static String translateAlternateColorCodes(char translate, String message) {
