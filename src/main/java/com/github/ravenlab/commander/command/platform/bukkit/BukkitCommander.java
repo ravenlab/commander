@@ -1,13 +1,9 @@
 package com.github.ravenlab.commander.command.platform.bukkit;
 
-import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Optional;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Server;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.Plugin;
 
@@ -20,7 +16,8 @@ public class BukkitCommander extends Commander<Plugin, Command> {
 	private Map<String, Command> knownCommands;
 	
 	public BukkitCommander() {
-		this.knownCommands = this.getKnownCommands();
+		this.knownCommands = new BukkitCommandMap()
+		.getMapIfExists(SimpleCommandMap.class);
 	}
 	
 	@Override
@@ -51,44 +48,5 @@ public class BukkitCommander extends Commander<Plugin, Command> {
 	@Override
 	protected String getPluginName(Plugin plugin) {
 		return plugin.getName();
-	}
-	
-	@SuppressWarnings("unchecked")
-	private Map<String, Command> getKnownCommands() {	
-		try {
-			Field commandField = SimpleCommandMap.class.getDeclaredField("knownCommands");
-			commandField.setAccessible(true);
-			CommandMap commandMap = this.getCommandMap();
-			if(commandMap != null) {
-				return (Map<String, Command>) commandField.get(commandMap);
-			}
-		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	
-	private CommandMap getCommandMap() {
-		try {
-			Server server = Bukkit.getServer();
-			Field mapField = null;
-			for(Field field : server.getClass().getDeclaredFields()) {
-				if(field.getName().equals("commandMap")) {
-					mapField = field;
-					break;
-				}
-			}
-			
-			if(mapField != null) {
-				mapField.setAccessible(true);
-				return (CommandMap) mapField.get(server);
-			}
-		} 
-		catch (Exception e) { 
-			e.printStackTrace(); 
-		}
-
-		return null;
 	}
 }
