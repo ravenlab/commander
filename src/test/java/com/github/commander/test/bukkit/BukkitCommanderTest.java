@@ -100,6 +100,19 @@ public class BukkitCommanderTest {
 	}
 	
 	@Test
+	public void testRegisterSameAliasForce() {
+		Plugin plugin = new TestBukkitPlugin("test");
+		Plugin plugin2 = new TestBukkitPlugin("test2");
+		CommanderCommand command = new ParentCommand();
+		BukkitCommander commander = new BukkitCommander();
+		commander.register(plugin, command);
+		commander.register(plugin2, command, true);
+		Optional<Collection<String>> commandOptional = commander.getCommands(plugin2);
+		assertTrue(commandOptional.isPresent());
+		assertFalse(commandOptional.get().contains("test2:father"));
+	}
+	
+	@Test
 	public void testRegisterNoKnownCommandsField() {
 		setServer(new TestNoCommandBukkitServer());
 		Plugin plugin = new TestBukkitPlugin("test");
