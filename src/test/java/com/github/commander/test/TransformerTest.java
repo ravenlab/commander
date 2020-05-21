@@ -7,12 +7,37 @@ import java.util.Optional;
 
 import org.junit.Test;
 
+import com.github.ravenlab.commander.transform.BooleanTransformer;
 import com.github.ravenlab.commander.transform.DoubleTransformer;
 import com.github.ravenlab.commander.transform.FloatTransformer;
 import com.github.ravenlab.commander.transform.IntegerTransformer;
 
 public class TransformerTest {
 
+	@Test
+	public void booleanTransformerTestInvalid() {
+		BooleanTransformer transformer = new BooleanTransformer();
+		Optional<Boolean> value = transformer.transform("a");
+		assertFalse(value.isPresent());
+	}
+	
+	@Test
+	public void booleanTransformerTestValid() {
+		BooleanTransformer transformer = new BooleanTransformer();
+		Optional<Boolean> trueValue = transformer.transform("true");
+		Optional<Boolean> falseValue = transformer.transform("false");
+		assertTrue(trueValue.isPresent());
+		assertTrue(trueValue.get());
+		assertTrue(falseValue.isPresent());
+		assertFalse(falseValue.get());
+	}
+	
+	@Test
+	public void booleanTransformerNoResolverTest() {
+		BooleanTransformer transformer = new BooleanTransformer();
+		assertFalse(transformer.getResolver().isPresent());
+	}
+	
 	@Test
 	public void doubleTransformerTestInvalid() {
 		DoubleTransformer transformer = new DoubleTransformer();
