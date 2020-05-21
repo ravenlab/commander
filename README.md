@@ -18,6 +18,7 @@ Commander isn't really stable enough to use yet. The API should be stabilizing w
 ## Supported platforms
 
 * Bukkit - Fully feature complete
-* Sponge - Next platform to be implemented
+* Sponge - To be implemented
+* Nukkit - To be implemented
 * Forge - Maybe some day
 * Fabric - Maybe some day
