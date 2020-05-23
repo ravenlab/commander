@@ -1,5 +1,5 @@
 package com.github.commander.test.bukkit.mock;
 
-public class TestNoCommandBukkitServer extends TestBukkitServer {
+import org.bukkit.Server;
 
-}
+public abstract class TestNoCommandBukkitServer implements Server {}

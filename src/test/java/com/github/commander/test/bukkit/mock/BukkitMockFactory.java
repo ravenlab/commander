@@ -7,11 +7,11 @@ import org.mockito.Mockito;
 public class BukkitMockFactory {
 
 	public TestBukkitServer createServer() {
-		return new TestBukkitServer();
+		return Mockito.spy(TestBukkitServer.class);
 	}
 	
 	public TestNoCommandBukkitServer createNoCommandServer() {
-		return new TestNoCommandBukkitServer();
+		return Mockito.spy(TestNoCommandBukkitServer.class);
 	}
 	
 	public TestBukkitPlugin createPlugin(String name) {
