@@ -59,4 +59,5 @@ public class TestBukkitCommandMap implements CommandMap {
 		return null;
 	}
 
+
 }

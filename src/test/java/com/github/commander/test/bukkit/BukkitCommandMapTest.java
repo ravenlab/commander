@@ -12,18 +12,20 @@ import org.bukkit.command.SimpleCommandMap;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.commander.test.bukkit.mock.BukkitMockFactory;
 import com.github.commander.test.bukkit.mock.TestBukkitCommandMap;
 import com.github.commander.test.bukkit.mock.TestBukkitServer;
-import com.github.commander.test.bukkit.mock.TestNoCommandBukkitServer;
 import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommandMap;
 
 public class BukkitCommandMapTest {
 
+	private BukkitMockFactory factory;
 	private TestBukkitServer server;
 	
 	@Before
 	public void bootstrapServer() {
-		this.server = new TestBukkitServer();
+		this.factory = new BukkitMockFactory();
+		this.server = this.factory.createServer();
 		this.setServer(this.server);
 	}
 	
@@ -45,7 +47,7 @@ public class BukkitCommandMapTest {
 	
 	@Test
 	public void nullGetMapIfExists() {
-		setServer(new TestNoCommandBukkitServer());
+		setServer(this.factory.createNoCommandServer());
 		BukkitCommandMap map = new BukkitCommandMap();
 		assertTrue(map.getMapIfExists(SimpleCommandMap.class) == null);
 		setServer(this.server);
@@ -59,7 +61,7 @@ public class BukkitCommandMapTest {
 	
 	@Test
 	public void invalidGetKnownCommands() {
-		setServer(new TestNoCommandBukkitServer());
+		setServer(this.factory.createNoCommandServer());
 		BukkitCommandMap map = new BukkitCommandMap();
 		try {
 			Method getKnownCommands = map.getClass().getDeclaredMethod("getKnownCommands");
@@ -87,7 +89,7 @@ public class BukkitCommandMapTest {
 	
 	@Test
 	public void invalidGetCommandMap() {
-		setServer(new TestNoCommandBukkitServer());
+		setServer(this.factory.createNoCommandServer());
 		BukkitCommandMap map = new BukkitCommandMap();
 		try {
 			Method getCommandMap = map.getClass().getDeclaredMethod("getCommandMap");

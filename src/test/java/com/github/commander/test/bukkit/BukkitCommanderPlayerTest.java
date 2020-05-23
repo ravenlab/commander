@@ -4,18 +4,27 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.UUID;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.github.commander.test.bukkit.mock.BukkitMockFactory;
 import com.github.commander.test.bukkit.mock.TestBukkitPlayer;
 import com.github.ravenlab.commander.player.bukkit.BukkitCommanderPlayer;
 
 public class BukkitCommanderPlayerTest {
 
+	private static BukkitMockFactory factory;
+	
+	@BeforeClass
+	public static void initFactory() {
+		factory = new BukkitMockFactory();
+	}
+	
 	@Test
 	public void getNameTest() {
 		String name = "test";
 		UUID uuid = UUID.randomUUID();
-		TestBukkitPlayer player = new TestBukkitPlayer(name, uuid);
+		TestBukkitPlayer player = factory.createPlayer(name, uuid);
 		BukkitCommanderPlayer commanderPlayer = new BukkitCommanderPlayer(player);
 		assertTrue(commanderPlayer.getName().equals("test")); 
 	}
@@ -24,7 +33,7 @@ public class BukkitCommanderPlayerTest {
 	public void getUniqueIdTest() {
 		String name = "test";
 		UUID uuid = UUID.randomUUID();
-		TestBukkitPlayer player = new TestBukkitPlayer(name, uuid);
+		TestBukkitPlayer player = factory.createPlayer(name, uuid);
 		BukkitCommanderPlayer commanderPlayer = new BukkitCommanderPlayer(player);
 		assertTrue(commanderPlayer.getUniqueId().equals(uuid)); 
 	}
@@ -33,7 +42,7 @@ public class BukkitCommanderPlayerTest {
 	public void hasPermissionTest() {
 		String name = "test";
 		UUID uuid = UUID.randomUUID();
-		TestBukkitPlayer player = new TestBukkitPlayer(name, uuid);
+		TestBukkitPlayer player = factory.createPlayer(name, uuid);
 		player.addPermission("test", true);
 		BukkitCommanderPlayer commanderPlayer = new BukkitCommanderPlayer(player);
 		assertTrue(commanderPlayer.hasPermission("test")); 
@@ -43,7 +52,7 @@ public class BukkitCommanderPlayerTest {
 	public void sendMessageTest() {
 		String name = "test";
 		UUID uuid = UUID.randomUUID();
-		TestBukkitPlayer player = new TestBukkitPlayer(name, uuid);
+		TestBukkitPlayer player = factory.createPlayer(name, uuid);
 		BukkitCommanderPlayer commanderPlayer = new BukkitCommanderPlayer(player);
 		commanderPlayer.sendMessage("test message");
 		assertTrue(player.getReceivedMessages().size() == 1);

@@ -1,6 +1,5 @@
 package com.github.commander.test.bukkit;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
@@ -12,6 +11,7 @@ import org.bukkit.Server;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.commander.test.bukkit.mock.BukkitMockFactory;
 import com.github.commander.test.bukkit.mock.TestBukkitPlayer;
 import com.github.commander.test.bukkit.mock.TestBukkitServer;
 import com.github.commander.test.bukkit.mock.TestBukkitWorld;
@@ -30,13 +30,14 @@ public class BukkitTransformerTest {
 	
 	@Before
 	public void bootstrapServer() {
-		this.server = new TestBukkitServer();
+		BukkitMockFactory factory = new BukkitMockFactory();
+		this.server = factory.createServer();
 		this.setServer(server);
 		UUID uuid = UUID.randomUUID();
 		String playerName = "test";
-		this.player = new TestBukkitPlayer(playerName, uuid);
+		this.player = factory.createPlayer(playerName, uuid);
 		this.server.addPlayer(this.player);
-		this.world = new TestBukkitWorld("test");
+		this.world = factory.createWorld("test");
 		this.server.addWorld(this.world);
 	}
 	
