@@ -8,13 +8,13 @@ import java.util.Map;
 
 import org.bukkit.command.CommandSender;
 
-public abstract class TestBukkitCommandSender implements CommandSender {
+public abstract class MockBukkitCommandSender implements CommandSender {
 
 	private String name;
 	private Map<String, Boolean> permissions;
 	private List<String> receivedMessages;
 	
-	public TestBukkitCommandSender(String name) {
+	public MockBukkitCommandSender(String name) {
 		this.name = name;
 		this.permissions = new HashMap<>();
 		this.receivedMessages = new ArrayList<>();

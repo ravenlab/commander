@@ -6,31 +6,31 @@ import org.mockito.Mockito;
 
 public class BukkitMockFactory {
 
-	public TestBukkitServer createServer() {
-		return Mockito.spy(TestBukkitServer.class);
+	public MockBukkitServer createServer() {
+		return Mockito.spy(MockBukkitServer.class);
 	}
 	
-	public TestNoCommandBukkitServer createNoCommandServer() {
-		return Mockito.spy(TestNoCommandBukkitServer.class);
+	public MockNoCommandBukkitServer createNoCommandServer() {
+		return Mockito.spy(MockNoCommandBukkitServer.class);
 	}
 	
-	public TestBukkitPlugin createPlugin(String name) {
-		return Mockito.mock(TestBukkitPlugin.class,
+	public MockBukkitPlugin createPlugin(String name) {
+		return Mockito.mock(MockBukkitPlugin.class,
 				Mockito.withSettings().useConstructor(name).defaultAnswer(Mockito.CALLS_REAL_METHODS));
 	}
 	
-	public TestBukkitWorld createWorld(String name) {
-		return Mockito.mock(TestBukkitWorld.class,
+	public MockBukkitWorld createWorld(String name) {
+		return Mockito.mock(MockBukkitWorld.class,
 				Mockito.withSettings().useConstructor(name).defaultAnswer(Mockito.CALLS_REAL_METHODS));
 	}
 	
-	public TestBukkitPlayer createPlayer(String name, UUID uuid) {
-		return Mockito.mock(TestBukkitPlayer.class, 
+	public MockBukkitPlayer createPlayer(String name, UUID uuid) {
+		return Mockito.mock(MockBukkitPlayer.class, 
 				Mockito.withSettings().useConstructor(name, uuid).defaultAnswer(Mockito.CALLS_REAL_METHODS));
 	}
 	
-	public TestBukkitCommandSender createSender(String name) {
-		return Mockito.mock(TestBukkitCommandSender.class, 
+	public MockBukkitCommandSender createSender(String name) {
+		return Mockito.mock(MockBukkitCommandSender.class, 
 				Mockito.withSettings().useConstructor(name).defaultAnswer(Mockito.CALLS_REAL_METHODS));
 	}
 }

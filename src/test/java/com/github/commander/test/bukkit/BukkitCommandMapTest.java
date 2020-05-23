@@ -13,14 +13,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.commander.test.bukkit.mock.BukkitMockFactory;
-import com.github.commander.test.bukkit.mock.TestBukkitCommandMap;
-import com.github.commander.test.bukkit.mock.TestBukkitServer;
+import com.github.commander.test.bukkit.mock.MockBukkitCommandMap;
+import com.github.commander.test.bukkit.mock.MockBukkitServer;
 import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommandMap;
 
 public class BukkitCommandMapTest {
 
 	private BukkitMockFactory factory;
-	private TestBukkitServer server;
+	private MockBukkitServer server;
 	
 	@Before
 	public void bootstrapServer() {
@@ -42,7 +42,7 @@ public class BukkitCommandMapTest {
 	@Test
 	public void invalidGetMapIfExists() {
 		BukkitCommandMap map = new BukkitCommandMap();
-		assertTrue(map.getMapIfExists(TestBukkitCommandMap.class) == null);
+		assertTrue(map.getMapIfExists(MockBukkitCommandMap.class) == null);
 	}
 	
 	@Test

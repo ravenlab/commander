@@ -11,7 +11,7 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.entity.Player;
 
-public abstract class TestBukkitServer implements Server {
+public abstract class MockBukkitServer implements Server {
 
 	private CommandMap commandMap;
 	private Logger logger;
@@ -19,7 +19,7 @@ public abstract class TestBukkitServer implements Server {
 	private Map<String, Player> playerNameMap;
 	private Map<String, World> worldMap;
 	
-	public TestBukkitServer() {
+	public MockBukkitServer() {
 		this.commandMap = new SimpleCommandMap(this);
 		this.logger = Logger.getLogger(this.getClass().getName());
 		this.playerUUIDMap = new HashMap<>();

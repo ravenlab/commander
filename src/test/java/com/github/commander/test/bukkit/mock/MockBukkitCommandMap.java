@@ -8,7 +8,7 @@ import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 
-public class TestBukkitCommandMap implements CommandMap {
+public class MockBukkitCommandMap implements CommandMap {
 
 	@Override
 	public void registerAll(String fallbackPrefix, List<Command> commands) {

@@ -9,14 +9,14 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-public abstract class TestBukkitPlayer implements Player {
+public abstract class MockBukkitPlayer implements Player {
 
 	private String name;
 	private UUID uuid;
 	private Map<String, Boolean> permissions;
 	private List<String> receivedMessages;
 	
-	public TestBukkitPlayer(String name, UUID uuid) {
+	public MockBukkitPlayer(String name, UUID uuid) {
 		this.name = name;
 		this.uuid = uuid;
 		this.permissions = new HashMap<>();

@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.commander.test.bukkit.mock.BukkitMockFactory;
-import com.github.commander.test.bukkit.mock.TestBukkitPlayer;
+import com.github.commander.test.bukkit.mock.MockBukkitPlayer;
 import com.github.ravenlab.commander.player.bukkit.BukkitCommanderPlayer;
 
 public class BukkitCommanderPlayerTest {
@@ -24,7 +24,7 @@ public class BukkitCommanderPlayerTest {
 	public void getNameTest() {
 		String name = "test";
 		UUID uuid = UUID.randomUUID();
-		TestBukkitPlayer player = factory.createPlayer(name, uuid);
+		MockBukkitPlayer player = factory.createPlayer(name, uuid);
 		BukkitCommanderPlayer commanderPlayer = new BukkitCommanderPlayer(player);
 		assertTrue(commanderPlayer.getName().equals("test")); 
 	}
@@ -33,7 +33,7 @@ public class BukkitCommanderPlayerTest {
 	public void getUniqueIdTest() {
 		String name = "test";
 		UUID uuid = UUID.randomUUID();
-		TestBukkitPlayer player = factory.createPlayer(name, uuid);
+		MockBukkitPlayer player = factory.createPlayer(name, uuid);
 		BukkitCommanderPlayer commanderPlayer = new BukkitCommanderPlayer(player);
 		assertTrue(commanderPlayer.getUniqueId().equals(uuid)); 
 	}
@@ -42,7 +42,7 @@ public class BukkitCommanderPlayerTest {
 	public void hasPermissionTest() {
 		String name = "test";
 		UUID uuid = UUID.randomUUID();
-		TestBukkitPlayer player = factory.createPlayer(name, uuid);
+		MockBukkitPlayer player = factory.createPlayer(name, uuid);
 		player.addPermission("test", true);
 		BukkitCommanderPlayer commanderPlayer = new BukkitCommanderPlayer(player);
 		assertTrue(commanderPlayer.hasPermission("test")); 
@@ -52,7 +52,7 @@ public class BukkitCommanderPlayerTest {
 	public void sendMessageTest() {
 		String name = "test";
 		UUID uuid = UUID.randomUUID();
-		TestBukkitPlayer player = factory.createPlayer(name, uuid);
+		MockBukkitPlayer player = factory.createPlayer(name, uuid);
 		BukkitCommanderPlayer commanderPlayer = new BukkitCommanderPlayer(player);
 		commanderPlayer.sendMessage("test message");
 		assertTrue(player.getReceivedMessages().size() == 1);

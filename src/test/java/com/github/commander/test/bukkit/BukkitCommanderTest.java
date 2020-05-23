@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.commander.test.bukkit.mock.BukkitMockFactory;
-import com.github.commander.test.bukkit.mock.TestBukkitServer;
+import com.github.commander.test.bukkit.mock.MockBukkitServer;
 import com.github.commander.test.command.ChildCommand;
 import com.github.commander.test.command.NoAnnotationCommand;
 import com.github.commander.test.command.ParentCommand;
@@ -24,7 +24,7 @@ import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommander;
 public class BukkitCommanderTest {
 
 	private BukkitMockFactory factory;
-	private TestBukkitServer server;
+	private MockBukkitServer server;
 	
 	@Before
 	public void bootstrapServer() {

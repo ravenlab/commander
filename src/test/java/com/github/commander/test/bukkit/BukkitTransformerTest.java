@@ -12,9 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.commander.test.bukkit.mock.BukkitMockFactory;
-import com.github.commander.test.bukkit.mock.TestBukkitPlayer;
-import com.github.commander.test.bukkit.mock.TestBukkitServer;
-import com.github.commander.test.bukkit.mock.TestBukkitWorld;
+import com.github.commander.test.bukkit.mock.MockBukkitPlayer;
+import com.github.commander.test.bukkit.mock.MockBukkitServer;
+import com.github.commander.test.bukkit.mock.MockBukkitWorld;
 import com.github.ravenlab.commander.player.CommanderPlayer;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.resolver.bukkit.BukkitTypeResolver;
@@ -24,9 +24,9 @@ import com.github.ravenlab.commander.world.CommanderWorld;
 
 public class BukkitTransformerTest {
 
-	private TestBukkitServer server;
-	private TestBukkitPlayer player;
-	private TestBukkitWorld world;
+	private MockBukkitServer server;
+	private MockBukkitPlayer player;
+	private MockBukkitWorld world;
 	
 	@Before
 	public void bootstrapServer() {
