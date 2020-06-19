@@ -6,9 +6,9 @@
 
 ## What is commander
 
-Commander is a platform agnostic command framework for Minecraft server implementations.
+Commander is a platform annotation based agnostic command framework for Minecraft server implementations.
 
-With Commander you can write commands and have permission resolving and child command resolving!
+With Commander you can write commands that have automatic permission resolving, aliasing and child command resolving!
 
 ## Why
 
