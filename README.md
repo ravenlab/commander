@@ -16,7 +16,7 @@ This project was mainly written for [DynamicGui](https://github.com/ClubObsidian
 
 ## How do I use it
 
-Commander isn't really stable enough to use yet. The API should be stabilizing when the API hits 0.1.0 and will likely have it's last breaking change when 1.0.0 is eventually realeased.
+Commander isn't really stable enough to use yet. The API should be stabilizing when the API hits 0.1.0 and will likely have it's last breaking change when 1.0.0 is eventually released.
 
 ## Supported platforms
 
