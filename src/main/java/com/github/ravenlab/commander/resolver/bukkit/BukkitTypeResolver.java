@@ -5,11 +5,14 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.github.ravenlab.commander.player.CommanderPlayer;
 import com.github.ravenlab.commander.player.bukkit.BukkitCommanderPlayer;
 import com.github.ravenlab.commander.resolver.TypeResolver;
+import com.github.ravenlab.commander.sender.CommanderSender;
+import com.github.ravenlab.commander.sender.bukkit.BukkitCommanderSender;
 import com.github.ravenlab.commander.world.CommanderWorld;
 import com.github.ravenlab.commander.world.bukkit.BukkitCommanderWorld;
 
@@ -47,5 +50,16 @@ public class BukkitTypeResolver implements TypeResolver {
 		
 		CommanderWorld<?> commanderWorld = new BukkitCommanderWorld(bukkitWorld);
 		return Optional.of(commanderWorld);
+	}
+
+	@Override
+	public CommanderSender<?> getSender(Object nativeSender) {
+		if(nativeSender instanceof Player) {
+			Player player = (Player) nativeSender;
+			return new BukkitCommanderPlayer(player);
+		} else {
+			CommandSender commandSender = (CommandSender) nativeSender;
+			return new BukkitCommanderSender(commandSender);
+		}
 	}
 }

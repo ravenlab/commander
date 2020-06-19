@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.github.ravenlab.commander.command.parser.CommandDataParser;
-import com.github.ravenlab.commander.sender.CommanderSender;
 
 public abstract class CommanderCommand {
 	
@@ -25,7 +24,7 @@ public abstract class CommanderCommand {
 		this.childrenMap = new HashMap<>();
 	}
 	
-	public abstract void doCommand(CommanderSender<?> sender, String name, CommandArgs arg);
+	public abstract <T> void doCommand(T sender, String name, CommandArgs arg);
 	
 	public Optional<CommandData> getData() {
 		return this.data;

@@ -26,10 +26,11 @@ public class CommanderExecutor {
 		
 		String[] executeArgs = parserData.getArgs();
 		String permission = commandData.getPermission();
+		Object nativeSender = sender.getNative();
 		
 		if(permission.equals("") || sender.hasPermission(permission)) {
 			CommandArgs commandArgs = new CommandArgs(Arrays.asList(executeArgs), this.resolver);
-			commandToExecute.doCommand(sender, label, commandArgs);
+			commandToExecute.doCommand(nativeSender, label, commandArgs);
 		} else {
 			String noPermissionMessage = commandData.getNoPermissionMessage();
 			sender.sendMessage(noPermissionMessage);
