@@ -5,11 +5,13 @@
 
 ## What is commander
 
-Commander is a platform agnostic command framework for Minecraft server implementations. With Commander you can ideally write your commands once and use them everywhere. This is done through the Commander class which handles platform specific command registration. With Commander there are a variety of features: force command registration, annotation-based commands, command aliasing and child commands.
+Commander is a platform agnostic command framework for Minecraft server implementations.
+
+With Commander you can write commands and have permission resolving and child command resolving!
 
 ## Why
 
-This project was mainly written for the [DynamicGui](https://github.com/ClubObsidian/DynamicGui) which currently has a wrapper for Bukkit and Sponge support but the commands have to be written seperately. This project implements a number of wrapper classes for things such as: players, senders, worlds etc so that code can be written once and ran on many.
+This project was mainly written for [DynamicGui](https://github.com/ClubObsidian/DynamicGui) to simplify command registration.
 
 ## How do I use it
 

@@ -13,12 +13,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.commander.test.bukkit.mock.BukkitMockFactory;
+import com.github.commander.test.bukkit.mock.MockBukkitCommandSender;
 import com.github.commander.test.bukkit.mock.MockBukkitPlayer;
 import com.github.commander.test.bukkit.mock.MockBukkitServer;
 import com.github.commander.test.bukkit.mock.MockBukkitWorld;
 import com.github.ravenlab.commander.player.CommanderPlayer;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.resolver.bukkit.BukkitTypeResolver;
+import com.github.ravenlab.commander.sender.CommanderSender;
 import com.github.ravenlab.commander.world.CommanderWorld;
 
 public class BukkitTypeResolverTest {
@@ -26,6 +28,7 @@ public class BukkitTypeResolverTest {
 	private MockBukkitServer server;
 	private MockBukkitPlayer player;
 	private MockBukkitWorld world;
+	private MockBukkitCommandSender sender;
 	
 	@Before
 	public void bootstrapServer() {
@@ -35,6 +38,7 @@ public class BukkitTypeResolverTest {
 		UUID uuid = UUID.randomUUID();
 		String playerName = "test";
 		this.player = factory.createPlayer(playerName, uuid);
+		this.sender = factory.createSender("test");
 		this.server.addPlayer(this.player);
 		this.world = factory.createWorld("test");
 		this.server.addWorld(this.world);
@@ -94,5 +98,19 @@ public class BukkitTypeResolverTest {
 		Optional<CommanderWorld<?>> worldOptional = resolver.getWorld(this.world.getName());
 		assertTrue(worldOptional.isPresent());
 		assertTrue(worldOptional.get().getName().equals(this.world.getName()));
+	}
+	
+	@Test
+	public void getSenderPlayerTest() {
+		TypeResolver resolver = new BukkitTypeResolver();
+		CommanderSender<?> sender = resolver.getSender(this.player);
+		assertTrue(sender.getName().equals(this.player.getName()));
+	}
+	
+	@Test
+	public void getSenderOtherTest() {
+		TypeResolver resolver = new BukkitTypeResolver();
+		CommanderSender<?> sender = resolver.getSender(this.sender);
+		assertTrue(sender.getName().equals(this.sender.getName()));
 	}
 }
