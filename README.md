@@ -1,6 +1,7 @@
 # commander
 
 [![build](https://github.com/ravenlab/commander/workflows/build/badge.svg)](https://github.com/ravenlab/commander/actions?query=workflow%3Abuild)
+[![](https://jitpack.io/v/ravenlab/commander.svg)](https://jitpack.io/#ravenlab/commander)
 [![codecov](https://codecov.io/gh/ravenlab/commander/branch/master/graph/badge.svg)](https://codecov.io/gh/ravenlab/commander)
 
 ## What is commander
