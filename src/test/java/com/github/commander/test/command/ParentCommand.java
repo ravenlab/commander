@@ -10,15 +10,16 @@ import com.github.ravenlab.commander.command.CommanderCommand;
 	permission="parent.use", 
 	noPermissionMessage="&cNo permission for that action"
 )
-public class ParentCommand extends CommanderCommand {
+public class ParentCommand<T> extends CommanderCommand<T> {
 	
 	private boolean ran;
+	
 	public ParentCommand() {
 		this.ran = false;
 	}
 	
 	@Override
-	public <TestSender> void doCommand(TestSender sender, String name, CommandArgs arg) {
+	public void doCommand(T sender, String name, CommandArgs arg) {
 		this.ran = true;
 	}
 	

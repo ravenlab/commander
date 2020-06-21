@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +48,7 @@ public class BukkitCommanderTest {
 	public void testRegisterNoAnnotation() {
 		Plugin plugin = this.factory.createPlugin("test");
 		BukkitCommander commander = new BukkitCommander();
-		CommanderCommand command = new NoAnnotationCommand();
+		CommanderCommand<CommandSender> command = new NoAnnotationCommand<>();
 		boolean registered = commander.register(plugin, command, true);
 		assertFalse(registered);
 	}
@@ -56,7 +57,7 @@ public class BukkitCommanderTest {
 	public void testRegisterSuccessWithoutForce() {
 		Plugin plugin = this.factory.createPlugin("test");
 		BukkitCommander commander = new BukkitCommander();
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		boolean registered = commander.register(plugin, command);
 		assertTrue(registered);
 	}
@@ -65,7 +66,7 @@ public class BukkitCommanderTest {
 	public void testRegisterSuccessForce() {
 		Plugin plugin = this.factory.createPlugin("test");
 		BukkitCommander commander = new BukkitCommander();
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		boolean registered = commander.register(plugin, command, true);
 		assertTrue(registered);
 	}
@@ -74,8 +75,8 @@ public class BukkitCommanderTest {
 	public void testRegisterMultipleCommands() {
 		Plugin plugin = this.factory.createPlugin("test");
 		BukkitCommander commander = new BukkitCommander();
-		CommanderCommand command = new ParentCommand();
-		CommanderCommand child = new ChildCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
+		CommanderCommand<CommandSender> child = new ChildCommand<>();
 		boolean parentRegistered = commander.register(plugin, command);
 		boolean childRegistered = commander.register(plugin, child);
 		assertTrue(parentRegistered);
@@ -86,7 +87,7 @@ public class BukkitCommanderTest {
 	public void testRegisterWithAlias() {
 		Plugin plugin = this.factory.createPlugin("test");
 		Plugin plugin2 = this.factory.createPlugin("test2");
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		BukkitCommander commander = new BukkitCommander();
 		commander.register(plugin, command);
 		commander.register(plugin2, command);
@@ -104,7 +105,7 @@ public class BukkitCommanderTest {
 	public void testRegisterSameAliasForce() {
 		Plugin plugin = this.factory.createPlugin("test");
 		Plugin plugin2 = this.factory.createPlugin("test");
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		BukkitCommander commander = new BukkitCommander();
 		commander.register(plugin, command);
 		commander.register(plugin2, command, true);
@@ -117,7 +118,7 @@ public class BukkitCommanderTest {
 	public void testRegisterNoKnownCommandsField() {
 		setServer(this.factory.createNoCommandServer());
 		Plugin plugin = this.factory.createPlugin("test");
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		BukkitCommander commander = new BukkitCommander();
 		boolean registered = commander.register(plugin, command);
 		assertFalse(registered);
@@ -128,7 +129,7 @@ public class BukkitCommanderTest {
 	public void testUnregisterOneCommand() {
 		Plugin plugin = this.factory.createPlugin("test");
 		BukkitCommander commander = new BukkitCommander();
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		boolean parentRegistered = commander.register(plugin, command);
 		commander.unregister(plugin, "parent");
 		Optional<Collection<String>> commands = commander.getCommands(plugin);
@@ -141,7 +142,7 @@ public class BukkitCommanderTest {
 	public void testUnregisterMultipleCommand() {
 		Plugin plugin = this.factory.createPlugin("test");
 		BukkitCommander commander = new BukkitCommander();
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		boolean parentRegistered = commander.register(plugin, command);
 		commander.unregister(plugin, "parent", "father", "mother");
 		Optional<Collection<String>> commands = commander.getCommands(plugin);
@@ -154,7 +155,7 @@ public class BukkitCommanderTest {
 	public void testUnregisterPlugin() {
 		Plugin plugin = this.factory.createPlugin("test");
 		BukkitCommander commander = new BukkitCommander();
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		boolean parentRegistered = commander.register(plugin, command);
 		commander.unregister(plugin);
 		Optional<Collection<String>> commands = commander.getCommands(plugin);
@@ -182,7 +183,7 @@ public class BukkitCommanderTest {
 	@Test
 	public void testUnregisterNonExistentCommand() {
 		Plugin plugin = this.factory.createPlugin("test");
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		BukkitCommander commander = new BukkitCommander();
 		commander.register(plugin, command);
 		boolean unregistered = commander.unregister(plugin, "doesntexist");
@@ -193,7 +194,7 @@ public class BukkitCommanderTest {
 	public void testUnregisterWithAlias() {
 		Plugin plugin = this.factory.createPlugin("test");
 		Plugin plugin2 = this.factory.createPlugin("test2");
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		BukkitCommander commander = new BukkitCommander();
 		commander.register(plugin, command);
 		commander.register(plugin2, command);
@@ -213,7 +214,7 @@ public class BukkitCommanderTest {
 	public void testGetCommandsWithCommands() {
 		Plugin plugin = this.factory.createPlugin("test");
 		BukkitCommander commander = new BukkitCommander();
-		CommanderCommand command = new ParentCommand();
+		CommanderCommand<CommandSender> command = new ParentCommand<>();
 		commander.register(plugin, command);
 		Optional<Collection<String>> commands = commander.getCommands(plugin);
 		assertTrue(commands.isPresent());

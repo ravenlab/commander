@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.Plugin;
 
@@ -11,7 +12,7 @@ import com.github.ravenlab.commander.Commander;
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
 
-public class BukkitCommander extends Commander<Plugin, Command> {
+public class BukkitCommander extends Commander<Plugin, Command, CommandSender> {
 	
 	private Map<String, Command> knownCommands;
 	
@@ -41,7 +42,7 @@ public class BukkitCommander extends Commander<Plugin, Command> {
 	}
 	
 	@Override
-	protected Command createCommandWrapper(CommandData data, CommanderCommand command) {
+	protected Command createCommandWrapper(CommandData data, CommanderCommand<CommandSender> command) {
 		return new BukkitCommandWrapper(command);
 	}
 	

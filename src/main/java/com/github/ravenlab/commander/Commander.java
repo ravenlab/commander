@@ -12,7 +12,7 @@ import java.util.Optional;
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
 
-public abstract class Commander<T, E> {
+public abstract class Commander<T, E, F> {
 	
 	private Map<T, Collection<String>> pluginCommands;
 	
@@ -22,9 +22,9 @@ public abstract class Commander<T, E> {
 	
 	protected abstract Optional<String> registerAlias(T plugin, E command, String alias, boolean forceRegister);
 	protected abstract boolean unregisterAlias(String command);
-	protected abstract E createCommandWrapper(CommandData data, CommanderCommand command);
+	protected abstract E createCommandWrapper(CommandData data, CommanderCommand<F> command);
 	
-	public boolean register(T plugin, CommanderCommand command, boolean forceRegister) {
+	public boolean register(T plugin, CommanderCommand<F> command, boolean forceRegister) {
 		Collection<String> registeredAliases = new ArrayList<>();
 		Optional<CommandData> dataOptional = command.getData();
 		if(!dataOptional.isPresent()) {
@@ -47,7 +47,7 @@ public abstract class Commander<T, E> {
 		return true;
 	}
 
-	public boolean register(T plugin, CommanderCommand command) {
+	public boolean register(T plugin, CommanderCommand<F> command) {
 		return this.register(plugin, command, false);
 	}
 

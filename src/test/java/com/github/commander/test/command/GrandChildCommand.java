@@ -5,9 +5,9 @@ import com.github.ravenlab.commander.command.CommandArgs;
 import com.github.ravenlab.commander.command.CommanderCommand;
 
 @Command("grandchild")
-public class GrandChildCommand extends CommanderCommand {
+public class GrandChildCommand<T> extends CommanderCommand<T> {
 
 	@Override
-	public <TestSender> void doCommand(TestSender sender, String name, CommandArgs arg) {}
+	public void doCommand(T sender, String name, CommandArgs arg) {}
 
 }

@@ -9,11 +9,11 @@ import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.util.ChatColor;
 
-public class CommandDataParser {
+public class CommandDataParser<T> {
 	
 	public static final String NO_PERMISSION_MESSAGE = "&cYou do not have permission to execute that command!";
 	
-	public Optional<CommandData> parse(CommanderCommand command) {
+	public Optional<CommandData> parse(CommanderCommand<T> command) {
 		Command[] cmdAr = command.getClass().getAnnotationsByType(Command.class);
 		if(cmdAr.length == 0) {
 			return Optional.empty();

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.UUID;
 
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -27,7 +28,7 @@ public class BukkitCommandWrapperTest {
 	
 	@Test
 	public void wrapperExecutePlayerNoPermissionTest() {
-		ParentCommand command = new ParentCommand();
+		ParentCommand<CommandSender> command = new ParentCommand<>();
 		Command wrapper = new BukkitCommandWrapper(command);
 		String name = "test";
 		UUID uuid = UUID.randomUUID();
@@ -39,7 +40,7 @@ public class BukkitCommandWrapperTest {
 	
 	@Test
 	public void wrapperExecutePlayerHasPermissionTest() {
-		ParentCommand command = new ParentCommand();
+		ParentCommand<CommandSender> command = new ParentCommand<>();
 		Command wrapper = new BukkitCommandWrapper(command);
 		String name = "test";
 		UUID uuid = UUID.randomUUID();
@@ -52,7 +53,7 @@ public class BukkitCommandWrapperTest {
 	
 	@Test
 	public void wrapperExecuteSenderNoPermissionTest() {
-		ParentCommand command = new ParentCommand();
+		ParentCommand<CommandSender> command = new ParentCommand<>();
 		Command wrapper = new BukkitCommandWrapper(command);
 		String name = "test";
 		MockBukkitCommandSender sender = factory.createSender(name);
@@ -63,7 +64,7 @@ public class BukkitCommandWrapperTest {
 	
 	@Test
 	public void wrapperExecuteSenderHasPermissionTest() {
-		ParentCommand command = new ParentCommand();
+		ParentCommand<CommandSender> command = new ParentCommand<>();
 		Command wrapper = new BukkitCommandWrapper(command);
 		String name = "test";
 		MockBukkitCommandSender sender = factory.createSender(name);
@@ -75,7 +76,7 @@ public class BukkitCommandWrapperTest {
 	
 	@Test
 	public void wrapperExecuteCommandNoPermissionTest() {
-		ChildCommand command = new ChildCommand();
+		ChildCommand<CommandSender> command = new ChildCommand<>();
 		Command wrapper = new BukkitCommandWrapper(command);
 		String name = "test";
 		UUID uuid = UUID.randomUUID();

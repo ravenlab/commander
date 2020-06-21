@@ -11,6 +11,7 @@ import org.junit.Test;
 import com.github.commander.test.command.ChildCommand;
 import com.github.commander.test.command.NoAnnotationCommand;
 import com.github.commander.test.command.ParentCommand;
+import com.github.commander.test.platform.TestSender;
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.command.parser.CommandDataParser;
@@ -20,14 +21,14 @@ public class CommandDataParserTest {
 
 	@Test
 	public void testName() {
-		CommanderCommand parent = new ParentCommand();
+		CommanderCommand<TestSender> parent = new ParentCommand<>();
 		CommandData data = parent.getData().get();
 		assertTrue(data.getName().equals("parent"));
 	}
 	
 	@Test
 	public void testAliases() {
-		CommanderCommand parent = new ParentCommand();
+		CommanderCommand<TestSender> parent = new ParentCommand<>();
 		CommandData data = parent.getData().get();
 		Collection<String> aliases = data.getAliases();
 		assertTrue(aliases.size() == 3);
@@ -38,7 +39,7 @@ public class CommandDataParserTest {
 	
 	@Test
 	public void testNoPermission() {
-		CommanderCommand child = new ChildCommand();
+		CommanderCommand<TestSender> child = new ChildCommand<>();
 		CommandData data = child.getData().get();
 		String permission = data.getPermission();
 		assertTrue(permission.equals(""));
@@ -46,7 +47,7 @@ public class CommandDataParserTest {
 	
 	@Test
 	public void testPermission() {
-		CommanderCommand parent = new ParentCommand();
+		CommanderCommand<TestSender> parent = new ParentCommand<>();
 		CommandData data = parent.getData().get();
 		String permission = data.getPermission();
 		assertTrue(permission.equals("parent.use"));
@@ -54,7 +55,7 @@ public class CommandDataParserTest {
 	
 	@Test
 	public void testNoPermissionMessage() {
-		CommanderCommand child = new ChildCommand();
+		CommanderCommand<TestSender> child = new ChildCommand<>();
 		CommandData data = child.getData().get();
 		String permissionMessage = data.getNoPermissionMessage();
 		String checkAgainst = ChatColor.translateAlternateColorCodes(CommandDataParser.NO_PERMISSION_MESSAGE);
@@ -63,7 +64,7 @@ public class CommandDataParserTest {
 	
 	@Test
 	public void testPermissionMessage() {
-		CommanderCommand parent = new ParentCommand();
+		CommanderCommand<TestSender> parent = new ParentCommand<>();
 		CommandData data = parent.getData().get();
 		String permissionMessage = data.getNoPermissionMessage();
 		String checkAgainst = ChatColor.translateAlternateColorCodes("&cNo permission for that action");
@@ -72,7 +73,7 @@ public class CommandDataParserTest {
 	
 	@Test
 	public void testNoAnnotation() {
-		CommanderCommand parent = new NoAnnotationCommand();
+		CommanderCommand<TestSender> parent = new NoAnnotationCommand<>();
 		Optional<CommandData> data = parent.getData();
 		assertFalse(data.isPresent());
 	}

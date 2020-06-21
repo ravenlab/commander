@@ -13,11 +13,11 @@ import com.github.ravenlab.commander.sender.bukkit.BukkitCommanderSender;
 
 public class BukkitCommandWrapper extends Command {
 
-	private CommanderExecutor executor;
+	private CommanderExecutor<CommandSender> executor;
 	
-	public BukkitCommandWrapper(CommanderCommand command)  {
+	public BukkitCommandWrapper(CommanderCommand<CommandSender> command)  {
 		super(command.getData().get().getName());
-		this.executor = new CommanderExecutor(command, new BukkitTypeResolver());
+		this.executor = new CommanderExecutor<>(command, new BukkitTypeResolver());
 	}
 
 	@Override

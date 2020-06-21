@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 import com.github.ravenlab.commander.command.CommanderCommand;
 
-public class ChildCommandParser {
+public class ChildCommandParser<T> {
 
-	public ChildCommandParserData parse(CommanderCommand cmd, String[] args) {
-		CommanderCommand root = cmd;
+	public ChildCommandParserData<T> parse(CommanderCommand<T> cmd, String[] args) {
+		CommanderCommand<T> root = cmd;
 		if(args.length > 0) {
 			String first = args[0].toLowerCase();
-			CommanderCommand child = root.getChildByName(first);
+			CommanderCommand<T> child = root.getChildByName(first);
 			if(child != null) {
 				String[] newArgs = new String[0];
 				if(args.length > 1) {
@@ -21,6 +21,6 @@ public class ChildCommandParser {
 			}
 		}
 
-		return new ChildCommandParserData(root, args);
+		return new ChildCommandParserData<>(root, args);
 	}
 }

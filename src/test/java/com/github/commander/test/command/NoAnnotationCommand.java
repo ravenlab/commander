@@ -3,9 +3,9 @@ package com.github.commander.test.command;
 import com.github.ravenlab.commander.command.CommandArgs;
 import com.github.ravenlab.commander.command.CommanderCommand;
 
-public class NoAnnotationCommand extends CommanderCommand {
+public class NoAnnotationCommand<T> extends CommanderCommand<T> {
 
 	@Override
-	public <TestSender> void doCommand(TestSender sender, String name, CommandArgs arg) {}
+	public void doCommand(T sender, String name, CommandArgs arg) {}
 
 }
