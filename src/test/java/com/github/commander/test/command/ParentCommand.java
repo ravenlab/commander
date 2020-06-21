@@ -19,8 +19,9 @@ public class ParentCommand<T> extends CommanderCommand<T> {
 	}
 	
 	@Override
-	public void doCommand(T sender, String name, CommandArgs arg) {
+	public boolean execute(T sender, String name, CommandArgs arg) {
 		this.ran = true;
+		return true;
 	}
 	
 	public boolean hasRan() {

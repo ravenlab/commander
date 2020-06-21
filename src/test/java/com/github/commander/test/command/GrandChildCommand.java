@@ -8,6 +8,8 @@ import com.github.ravenlab.commander.command.CommanderCommand;
 public class GrandChildCommand<T> extends CommanderCommand<T> {
 
 	@Override
-	public void doCommand(T sender, String name, CommandArgs arg) {}
+	public boolean execute(T sender, String name, CommandArgs arg) {
+		return true;
+	}
 
 }
