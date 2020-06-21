@@ -8,48 +8,38 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.github.ravenlab.commander.player.CommanderPlayer;
 import com.github.ravenlab.commander.player.bukkit.BukkitCommanderPlayer;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.sender.CommanderSender;
 import com.github.ravenlab.commander.sender.bukkit.BukkitCommanderSender;
-import com.github.ravenlab.commander.world.CommanderWorld;
-import com.github.ravenlab.commander.world.bukkit.BukkitCommanderWorld;
 
-public class BukkitTypeResolver implements TypeResolver {
+public class BukkitTypeResolver implements TypeResolver<Player, World> {
 
 	@Override
-	public Optional<CommanderPlayer<?>> getPlayer(String name) {
+	public Optional<Player> getPlayer(String name) {
 		Player bukkitPlayer = Bukkit.getServer().getPlayer(name);
 		if(bukkitPlayer == null) {
 			return Optional.empty();
 		}
-		
-		CommanderPlayer<?> commanderPlayer = new BukkitCommanderPlayer(bukkitPlayer);
-		return Optional.of(commanderPlayer);
-
+		return Optional.of(bukkitPlayer);
 	}
 
 	@Override
-	public Optional<CommanderPlayer<?>> getPlayer(UUID uuid) {
+	public Optional<Player> getPlayer(UUID uuid) {
 		Player bukkitPlayer = Bukkit.getServer().getPlayer(uuid);
 		if(bukkitPlayer == null) {
 			return Optional.empty();
 		}
-		
-		CommanderPlayer<?> commanderPlayer = new BukkitCommanderPlayer(bukkitPlayer);
-		return Optional.of(commanderPlayer);
+		return Optional.of(bukkitPlayer);
 	}
 
 	@Override
-	public Optional<CommanderWorld<?>> getWorld(String name) {
+	public Optional<World> getWorld(String name) {
 		World bukkitWorld = Bukkit.getServer().getWorld(name);
 		if(bukkitWorld == null) {
 			return Optional.empty();
 		}
-		
-		CommanderWorld<?> commanderWorld = new BukkitCommanderWorld(bukkitWorld);
-		return Optional.of(commanderWorld);
+		return Optional.of(bukkitWorld);
 	}
 
 	@Override
@@ -61,5 +51,15 @@ public class BukkitTypeResolver implements TypeResolver {
 			CommandSender commandSender = (CommandSender) nativeSender;
 			return new BukkitCommanderSender(commandSender);
 		}
+	}
+
+	@Override
+	public Class<Player> getPlayerClass() {
+		return Player.class;
+	}
+
+	@Override
+	public Class<World> getWorldClass() {
+		return World.class;
 	}
 }

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class CommandArgsTest {
 	public void lowerBoundsTest() {
 		List<String> args = new ArrayList<>();
 		args.add("test");
-		TypeResolver testResolver = new TestTypeResolver();
+		TypeResolver<?, ?> testResolver = new TestTypeResolver();
 		CommandArgs commandArgs = new CommandArgs(args, testResolver);
 		assertFalse(commandArgs.getArg(-1).isPresent());
 	}
@@ -28,7 +29,7 @@ public class CommandArgsTest {
 	public void upperBoundsTest() {
 		List<String> args = new ArrayList<>();
 		args.add("test");
-		TypeResolver testResolver = new TestTypeResolver();
+		TypeResolver<?, ?> testResolver = new TestTypeResolver();
 		CommandArgs commandArgs = new CommandArgs(args, testResolver);
 		assertFalse(commandArgs.getArg(args.size()).isPresent());
 	}
@@ -37,7 +38,7 @@ public class CommandArgsTest {
 	public void argTest() {
 		List<String> args = new ArrayList<>();
 		args.add("test");
-		TypeResolver testResolver = new TestTypeResolver();
+		TypeResolver<?, ?> testResolver = new TestTypeResolver();
 		CommandArgs commandArgs = new CommandArgs(args, testResolver);
 		assertTrue(commandArgs.getArg(0).isPresent());
 		assertTrue(commandArgs.getArg(0).get().equals("test"));
@@ -47,7 +48,7 @@ public class CommandArgsTest {
 	public void notStringTest() {
 		List<String> args = new ArrayList<>();
 		args.add("1");
-		TypeResolver testResolver = new TestTypeResolver();
+		TypeResolver<?, ?> testResolver = new TestTypeResolver();
 		CommandArgs commandArgs = new CommandArgs(args, testResolver);
 		assertTrue(commandArgs.getArg(0).isPresent());
 		
@@ -60,10 +61,10 @@ public class CommandArgsTest {
 	public void noTransformerTest() {
 		List<String> args = new ArrayList<>();
 		args.add("1");
-		TypeResolver testResolver = new TestTypeResolver();
+		TypeResolver<?, ?> testResolver = new TestTypeResolver();
 		CommandArgs commandArgs = new CommandArgs(args, testResolver);
 		
-		Optional<TypeResolver> value = commandArgs.getArg(TypeResolver.class, 0);
+		Optional<Pattern> value = commandArgs.getArg(Pattern.class, 0);
 		assertFalse(value.isPresent());
 	}
 	
@@ -71,7 +72,7 @@ public class CommandArgsTest {
 	public void noValueTest() {
 		List<String> args = new ArrayList<>();
 		args.add("a");
-		TypeResolver testResolver = new TestTypeResolver();
+		TypeResolver<?, ?> testResolver = new TestTypeResolver();
 		CommandArgs commandArgs = new CommandArgs(args, testResolver);
 		assertTrue(commandArgs.getArg(0).isPresent());
 		
@@ -83,7 +84,7 @@ public class CommandArgsTest {
 	public void sizeTest() {
 		List<String> args = new ArrayList<>();
 		args.add("1");
-		TypeResolver testResolver = new TestTypeResolver();
+		TypeResolver<?, ?> testResolver = new TestTypeResolver();
 		CommandArgs commandArgs = new CommandArgs(args, testResolver);
 		
 		assertTrue(commandArgs.size() == 1);

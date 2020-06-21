@@ -8,6 +8,8 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,12 +17,10 @@ import com.github.commander.test.bukkit.mock.BukkitMockFactory;
 import com.github.commander.test.bukkit.mock.MockBukkitPlayer;
 import com.github.commander.test.bukkit.mock.MockBukkitServer;
 import com.github.commander.test.bukkit.mock.MockBukkitWorld;
-import com.github.ravenlab.commander.player.CommanderPlayer;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.resolver.bukkit.BukkitTypeResolver;
 import com.github.ravenlab.commander.transform.PlayerTransformer;
 import com.github.ravenlab.commander.transform.WorldTransformer;
-import com.github.ravenlab.commander.world.CommanderWorld;
 
 public class BukkitTransformerTest {
 
@@ -53,17 +53,17 @@ public class BukkitTransformerTest {
 	
 	@Test
 	public void playerTransformerTest() {
-		TypeResolver resolver = new BukkitTypeResolver();
-		PlayerTransformer transformer = new PlayerTransformer(resolver);
-		Optional<CommanderPlayer<?>> playerOptional = transformer.transform(this.player.getName());
+		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
+		PlayerTransformer<Player> transformer = new PlayerTransformer<>(resolver);
+		Optional<Player> playerOptional = transformer.transform(this.player.getName());
 		assertTrue(playerOptional.isPresent());
 	}
 	
 	@Test
 	public void worldTransformerTest() {
-		TypeResolver resolver = new BukkitTypeResolver();
-		WorldTransformer transformer = new WorldTransformer(resolver);
-		Optional<CommanderWorld<?>> worldOptional = transformer.transform(this.world.getName());
+		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
+		WorldTransformer<World> transformer = new WorldTransformer<>(resolver);
+		Optional<World> worldOptional = transformer.transform(this.world.getName());
 		assertTrue(worldOptional.isPresent());
 	}
 }

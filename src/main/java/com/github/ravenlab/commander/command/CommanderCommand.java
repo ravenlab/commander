@@ -24,7 +24,7 @@ public abstract class CommanderCommand<T> {
 		this.childrenMap = new HashMap<>();
 	}
 	
-	public abstract void doCommand(T sender, String name, CommandArgs arg);
+	public abstract void doCommand(T sender, String name, CommandArgs args);
 	
 	public Optional<CommandData> getData() {
 		return this.data;

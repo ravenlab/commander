@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,11 +19,9 @@ import com.github.commander.test.bukkit.mock.MockBukkitCommandSender;
 import com.github.commander.test.bukkit.mock.MockBukkitPlayer;
 import com.github.commander.test.bukkit.mock.MockBukkitServer;
 import com.github.commander.test.bukkit.mock.MockBukkitWorld;
-import com.github.ravenlab.commander.player.CommanderPlayer;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.resolver.bukkit.BukkitTypeResolver;
 import com.github.ravenlab.commander.sender.CommanderSender;
-import com.github.ravenlab.commander.world.CommanderWorld;
 
 public class BukkitTypeResolverTest {
 
@@ -56,60 +56,60 @@ public class BukkitTypeResolverTest {
 	
 	@Test
 	public void getPlayerNonExistentNameTest() {
-		TypeResolver resolver = new BukkitTypeResolver();
-		Optional<CommanderPlayer<?>> playerOptional = resolver.getPlayer("doesnotexist");
+		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
+		Optional<Player> playerOptional = resolver.getPlayer("doesnotexist");
 		assertFalse(playerOptional.isPresent());
 	}
 	
 	@Test
 	public void getPlayerNameTest() {
-		TypeResolver resolver = new BukkitTypeResolver();
-		Optional<CommanderPlayer<?>> playerOptional = resolver.getPlayer("test");
+		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
+		Optional<Player> playerOptional = resolver.getPlayer("test");
 		assertTrue(playerOptional.isPresent());
 		assertTrue(playerOptional.get().getName().equals(this.player.getName()));
 	}
 	
 	@Test
 	public void getPlayerUUIDDoesNotExistTest() {
-		TypeResolver resolver = new BukkitTypeResolver();
-		Optional<CommanderPlayer<?>> playerOptional = resolver.getPlayer(UUID.randomUUID());
+		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
+		Optional<Player> playerOptional = resolver.getPlayer(UUID.randomUUID());
 		assertFalse(playerOptional.isPresent());
 	}
 	
 	@Test
 	public void getPlayerUUIDTest() {
-		TypeResolver resolver = new BukkitTypeResolver();
+		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
 		UUID uuid = this.player.getUniqueId();
-		Optional<CommanderPlayer<?>> playerOptional = resolver.getPlayer(uuid);
+		Optional<Player> playerOptional = resolver.getPlayer(uuid);
 		assertTrue(playerOptional.isPresent());
 		assertTrue(playerOptional.get().getUniqueId().equals(uuid));
 	}
 	
 	@Test
 	public void getWorldDoesNotExistTest() {
-		TypeResolver resolver = new BukkitTypeResolver();
-		Optional<CommanderWorld<?>> worldOptional = resolver.getWorld("doesnotexist");
+		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
+		Optional<World> worldOptional = resolver.getWorld("doesnotexist");
 		assertFalse(worldOptional.isPresent());
 	}
 	
 	@Test
 	public void getWorldTest() {
-		TypeResolver resolver = new BukkitTypeResolver();
-		Optional<CommanderWorld<?>> worldOptional = resolver.getWorld(this.world.getName());
+		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
+		Optional<World> worldOptional = resolver.getWorld(this.world.getName());
 		assertTrue(worldOptional.isPresent());
 		assertTrue(worldOptional.get().getName().equals(this.world.getName()));
 	}
 	
 	@Test
 	public void getSenderPlayerTest() {
-		TypeResolver resolver = new BukkitTypeResolver();
+		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
 		CommanderSender<?> sender = resolver.getSender(this.player);
 		assertTrue(sender.getName().equals(this.player.getName()));
 	}
 	
 	@Test
 	public void getSenderOtherTest() {
-		TypeResolver resolver = new BukkitTypeResolver();
+		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
 		CommanderSender<?> sender = resolver.getSender(this.sender);
 		assertTrue(sender.getName().equals(this.sender.getName()));
 	}
