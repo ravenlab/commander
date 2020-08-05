@@ -17,8 +17,8 @@ import com.github.commander.test.bukkit.mock.BukkitMockFactory;
 import com.github.commander.test.bukkit.mock.MockBukkitPlayer;
 import com.github.commander.test.bukkit.mock.MockBukkitServer;
 import com.github.commander.test.bukkit.mock.MockBukkitWorld;
+import com.github.ravenlab.commander.command.platform.bukkit.BukkitTypeResolver;
 import com.github.ravenlab.commander.resolver.TypeResolver;
-import com.github.ravenlab.commander.resolver.bukkit.BukkitTypeResolver;
 import com.github.ravenlab.commander.transform.PlayerTransformer;
 import com.github.ravenlab.commander.transform.WorldTransformer;
 

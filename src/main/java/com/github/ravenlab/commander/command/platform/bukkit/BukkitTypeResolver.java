@@ -1,4 +1,4 @@
-package com.github.ravenlab.commander.resolver.bukkit;
+package com.github.ravenlab.commander.command.platform.bukkit;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -8,10 +8,8 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.github.ravenlab.commander.player.bukkit.BukkitCommanderPlayer;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.sender.CommanderSender;
-import com.github.ravenlab.commander.sender.bukkit.BukkitCommanderSender;
 
 public class BukkitTypeResolver implements TypeResolver<Player, World> {
 

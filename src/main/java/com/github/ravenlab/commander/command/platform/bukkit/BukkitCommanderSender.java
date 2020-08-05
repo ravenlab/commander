@@ -1,4 +1,4 @@
-package com.github.ravenlab.commander.sender.bukkit;
+package com.github.ravenlab.commander.command.platform.bukkit;
 
 import org.bukkit.command.CommandSender;
 

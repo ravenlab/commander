@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.github.commander.test.bukkit.mock.BukkitMockFactory;
 import com.github.commander.test.bukkit.mock.MockBukkitPlayer;
-import com.github.ravenlab.commander.player.bukkit.BukkitCommanderPlayer;
+import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommanderPlayer;
 
 public class BukkitCommanderPlayerTest {
 
