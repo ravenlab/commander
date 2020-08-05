@@ -14,6 +14,7 @@ import com.github.commander.test.bungeecord.mock.MockBungeeServer;
 import com.github.ravenlab.commander.command.platform.bungeecord.BungeeCommandMap;
 
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.plugin.PluginManager;
 
 public class BungeeCommandMapTest {
 
@@ -40,36 +41,13 @@ public class BungeeCommandMapTest {
 	@Test
 	public void invalidGetMapIfExists() {
 		BungeeCommandMap map = new BungeeCommandMap();
-		assertTrue(map.getMapIfExists() == null);
-	}
-	
-	@Test
-	public void nullGetMapIfExists() {
-		setServer(this.factory.createNoCommandServer());
-		BungeeCommandMap map = new BungeeCommandMap();
-		assertTrue(map.getMapIfExists() == null);
-		setServer(this.server);
+		assertTrue(map.getMapIfExists("doesnotexist") == null);
 	}
 	
 	@Test
 	public void validGetMapIfExists() {
 		BungeeCommandMap map = new BungeeCommandMap();
-		assertTrue(map.getMapIfExists() != null);
-	}
-	
-	@Test
-	public void invalidGetKnownCommands() {
-		setServer(this.factory.createNoCommandServer());
-		BungeeCommandMap map = new BungeeCommandMap();
-		try {
-			Method getKnownCommands = map.getClass().getDeclaredMethod("getKnownCommands");
-			getKnownCommands.setAccessible(true);
-			Object knownCommands = getKnownCommands.invoke(map);
-			assertTrue(knownCommands == null);
-		} catch (NoSuchMethodException | SecurityException | InvocationTargetException | IllegalAccessException | IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-		setServer(this.server);
+		assertTrue(map.getMapIfExists(ProxyServer.getInstance().getPluginManager()) != null);
 	}
 	
 	@Test
@@ -83,21 +61,6 @@ public class BungeeCommandMapTest {
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	@Test
-	public void invalidGetCommandMap() {
-		setServer(this.factory.createNoCommandServer());
-		BungeeCommandMap map = new BungeeCommandMap();
-		try {
-			Method getCommandMap = map.getClass().getDeclaredMethod("getCommandMap");
-			getCommandMap.setAccessible(true);
-			Object BungeeCommandMap = getCommandMap.invoke(map);
-			assertTrue(BungeeCommandMap == null);
-		} catch (NoSuchMethodException | SecurityException | InvocationTargetException | IllegalAccessException | IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-		setServer(this.server);
 	}
 	
 	@Test

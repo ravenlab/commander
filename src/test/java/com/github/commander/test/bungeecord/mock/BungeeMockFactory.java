@@ -9,11 +9,7 @@ public class BungeeMockFactory {
 	public MockBungeeServer createServer() {
 		return Mockito.spy(MockBungeeServer.class);
 	}
-	
-	public MockNoCommandBungeeServer createNoCommandServer() {
-		return Mockito.spy(MockNoCommandBungeeServer.class);
-	}
-	
+
 	public MockBungeePlugin createPlugin(String name) {
 		return Mockito.mock(MockBungeePlugin.class,
 				Mockito.withSettings().useConstructor(name).defaultAnswer(Mockito.CALLS_REAL_METHODS));

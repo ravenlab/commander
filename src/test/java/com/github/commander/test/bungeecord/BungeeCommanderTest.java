@@ -115,17 +115,6 @@ public class BungeeCommanderTest {
 	}
 	
 	@Test
-	public void testRegisterNoKnownCommandsField() {
-		setServer(this.factory.createNoCommandServer());
-		Plugin plugin = this.factory.createPlugin("test");
-		CommanderCommand<CommandSender> command = new ParentCommand<>();
-		BungeeCommander commander = new BungeeCommander();
-		boolean registered = commander.register(plugin, command);
-		assertFalse(registered);
-		setServer(this.server);
-	}
-	
-	@Test
 	public void testUnregisterOneCommand() {
 		Plugin plugin = this.factory.createPlugin("test");
 		BungeeCommander commander = new BungeeCommander();
