@@ -37,7 +37,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:3.3.3'
     testImplementation 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+    testImplementation 'net.md-5:bungeecord-api:1.12-SNAPSHOT'
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+    compileOnly 'net.md-5:bungeecord-api:1.12-SNAPSHOT'
 }
 
 jacocoTestReport {
