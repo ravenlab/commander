@@ -11,30 +11,19 @@ import net.md_5.bungee.api.plugin.PluginManager;
 
 public class BungeeCommandMap {
 
-	public Map<String, Command> getMapIfExists(Class<? extends Map<String, Command>> clazz) {
+	public Map<String, Command> getMapIfExists() {
 		try {
-			return this.getKnownCommands(clazz);
-		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+			return this.getCommandMap();
+		} catch (SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
 
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
-	private Map<String, Command> getKnownCommands(Class<? extends Map<String, Command>> clazz) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {	
-		Field commandField = clazz.getDeclaredField("knownCommands");
-		commandField.setAccessible(true);
-		Map<String, Command> commandMap = this.getCommandMap();
-		if(commandMap != null) {
-			return (Map<String, Command>) commandField.get(commandMap);
-		}
-
-		return null;
-	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String, Command> getCommandMap() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	public Map<String, Command> getCommandMap() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		PluginManager manager = ProxyServer.getInstance().getPluginManager();
 		Field mapField = null;
 		for(Field field : manager.getClass().getDeclaredFields()) {

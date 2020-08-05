@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.plugin.PluginManager;
 
 
 public abstract class MockBungeeServer extends ProxyServer {
@@ -14,11 +15,13 @@ public abstract class MockBungeeServer extends ProxyServer {
 	private Logger logger;
 	private Map<UUID, ProxiedPlayer> playerUUIDMap;
 	private Map<String, ProxiedPlayer> playerNameMap;
+	private PluginManager pluginManager;
 	
 	public MockBungeeServer() {
 		this.logger = Logger.getLogger(this.getClass().getName());
 		this.playerUUIDMap = new HashMap<>();
 		this.playerNameMap = new HashMap<>();
+		this.pluginManager = new PluginManager(this);
 	}
 	
 	@Override
@@ -34,6 +37,11 @@ public abstract class MockBungeeServer extends ProxyServer {
 	@Override
 	public ProxiedPlayer getPlayer(String name) {
 		return this.playerNameMap.get(name);
+	}
+	
+	@Override
+	public PluginManager getPluginManager() {
+		return this.pluginManager;
 	}
 	
 	public void addPlayer(ProxiedPlayer player) {
