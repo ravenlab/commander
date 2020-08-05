@@ -21,7 +21,7 @@ Commander isn't really stable enough to use yet. The API should be stabilizing w
 ## Supported platforms
 
 * Bukkit - Fully feature complete
-* BungeeCord - To be implemented
+* BungeeCord - Fully feature complete
 * Sponge - To be implemented
 * Nukkit - To be implemented
 * Forge - Maybe some day
