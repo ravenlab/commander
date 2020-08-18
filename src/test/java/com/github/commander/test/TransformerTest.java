@@ -11,6 +11,7 @@ import com.github.ravenlab.commander.transform.BooleanTransformer;
 import com.github.ravenlab.commander.transform.DoubleTransformer;
 import com.github.ravenlab.commander.transform.FloatTransformer;
 import com.github.ravenlab.commander.transform.IntegerTransformer;
+import com.github.ravenlab.commander.transform.LongTransformer;
 
 public class TransformerTest {
 
@@ -98,6 +99,27 @@ public class TransformerTest {
 	@Test
 	public void integerTransformerNoResolverTest() {
 		IntegerTransformer transformer = new IntegerTransformer();
+		assertFalse(transformer.getResolver().isPresent());
+	}
+	
+	@Test
+	public void longTransformerTestInvalid() {
+		LongTransformer transformer = new LongTransformer();
+		Optional<Long> value = transformer.transform("a");
+		assertFalse(value.isPresent());
+	}
+	
+	@Test
+	public void longTransformerTestValid() {
+		LongTransformer transformer = new LongTransformer();
+		Optional<Long> value = transformer.transform("1");
+		assertTrue(value.isPresent());
+		assertTrue(value.get() == 1);
+	}
+	
+	@Test
+	public void longTransformerNoResolverTest() {
+		LongTransformer transformer = new LongTransformer();
 		assertFalse(transformer.getResolver().isPresent());
 	}
 }
