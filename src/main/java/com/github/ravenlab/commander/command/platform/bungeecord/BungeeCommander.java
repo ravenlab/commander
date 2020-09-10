@@ -1,6 +1,5 @@
 package com.github.ravenlab.commander.command.platform.bungeecord;
 
-
 import java.util.Map;
 import java.util.Optional;
 
@@ -48,4 +47,7 @@ public class BungeeCommander extends Commander<Plugin, Command, CommandSender>{
 	protected String getPluginName(Plugin plugin) {
 		return plugin.getDescription().getName();
 	}
+
+	@Override
+	protected void createUnregisterSequence(Plugin plugin) {}
 }

@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.SimpleCommandMap;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 
 import com.github.ravenlab.commander.Commander;
@@ -49,5 +52,19 @@ public class BukkitCommander extends Commander<Plugin, Command, CommandSender> {
 	@Override
 	protected String getPluginName(Plugin plugin) {
 		return plugin.getName();
+	}
+
+	@Override
+	protected void createUnregisterSequence(Plugin plugin) {
+		BukkitCommander commander = this;
+		plugin.getServer().getPluginManager().registerEvents(new Listener() {
+			@EventHandler
+			public void onDisable(PluginDisableEvent event) {
+				Plugin plugin = event.getPlugin();
+				if(commander.removeRegisteredPlugin(plugin)) {
+					commander.unregister(plugin);
+				}
+			}
+		}, plugin);
 	}
 }

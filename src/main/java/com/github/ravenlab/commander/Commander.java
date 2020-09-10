@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import com.github.ravenlab.commander.command.CommandData;
 import com.github.ravenlab.commander.command.CommanderCommand;
@@ -15,14 +16,25 @@ import com.github.ravenlab.commander.command.CommanderCommand;
 public abstract class Commander<T, E, F> {
 	
 	private Map<T, Collection<String>> pluginCommands;
+	private Set<T> registeredPlugins;
 	
 	public Commander() {
 		this.pluginCommands = new HashMap<>();
+		this.registeredPlugins = new HashSet<>();
 	}
 	
 	protected abstract Optional<String> registerAlias(T plugin, E command, String alias, boolean forceRegister);
 	protected abstract boolean unregisterAlias(String command);
 	protected abstract E createCommandWrapper(CommandData data, CommanderCommand<F> command);
+	protected abstract void createUnregisterSequence(T plugin);
+	
+	protected boolean hasRegisteredPlugin(T plugin) {
+		return this.registeredPlugins.contains(plugin);
+	}
+	
+	protected boolean removeRegisteredPlugin(T plugin) {
+		return this.registeredPlugins.remove(plugin);
+	}
 	
 	public boolean register(T plugin, CommanderCommand<F> command, boolean forceRegister) {
 		Collection<String> registeredAliases = new ArrayList<>();
@@ -44,6 +56,9 @@ public abstract class Commander<T, E, F> {
 		}
 
 		this.addPluginCommands(plugin, registeredAliases);
+		if(this.registeredPlugins.add(plugin)) {
+			this.createUnregisterSequence(plugin);
+		}
 		return true;
 	}
 
@@ -117,7 +132,7 @@ public abstract class Commander<T, E, F> {
 			cmds = new HashSet<>();
 			this.pluginCommands.put(plugin, cmds);
 		}
-
+		
 		cmds.addAll(registeredCommands);
 	}
 }
