@@ -8,18 +8,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import com.github.ravenlab.commander.command.parser.CommandDataParser;
-
 public abstract class CommanderCommand<T> {
 	
-	private CommandDataParser<T> dataParser;
 	private Optional<CommandData> data;
 	private Set<CommanderCommand<T>> childrenSet;
 	private Map<String, CommanderCommand<T>> childrenMap;
 	
 	public CommanderCommand() {
-		this.dataParser = new CommandDataParser<T>();
-		this.data = this.dataParser.parse(this);
+		this.data = new CommandData.Builder().consumeCommand(this).build();
 		this.childrenSet = new HashSet<>();
 		this.childrenMap = new HashMap<>();
 	}
@@ -28,6 +24,14 @@ public abstract class CommanderCommand<T> {
 	
 	public Optional<CommandData> getData() {
 		return this.data;
+	}
+	
+	public boolean setData(CommandData data) {
+		if(this.data.isPresent()) {
+			return false;
+		}
+		this.data = Optional.of(data);
+		return true;
 	}
 	
 	public Collection<CommanderCommand<T>> getChildren() {
