@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.github.commander.test.bungeecord.mock.BungeeMockFactory;
 import com.github.commander.test.bungeecord.mock.MockBungeePlayer;
-import com.github.ravenlab.commander.command.platform.bungeecord.BungeeCommanderPlayer;
+import com.github.ravenlab.commander.platform.bungeecord.BungeeCommanderPlayer;
 
 public class BungeeCommanderPlayerTest {
 

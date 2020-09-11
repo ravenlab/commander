@@ -15,7 +15,7 @@ import com.github.commander.test.bukkit.mock.MockBukkitCommandSender;
 import com.github.commander.test.bukkit.mock.MockBukkitPlayer;
 import com.github.commander.test.command.ChildCommand;
 import com.github.commander.test.command.ParentCommand;
-import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommandWrapper;
+import com.github.ravenlab.commander.platform.bukkit.BukkitCommandWrapper;
 
 public class BukkitCommandWrapperTest {
 

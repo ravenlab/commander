@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.github.commander.test.bungeecord.mock.BungeeMockFactory;
 import com.github.commander.test.bungeecord.mock.MockBungeeServer;
-import com.github.ravenlab.commander.command.platform.bungeecord.BungeeCommandMap;
+import com.github.ravenlab.commander.platform.bungeecord.BungeeCommandMap;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.PluginManager;

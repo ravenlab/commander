@@ -13,7 +13,7 @@ import com.github.commander.test.bungeecord.mock.MockBungeeCommandSender;
 import com.github.commander.test.bungeecord.mock.MockBungeePlayer;
 import com.github.commander.test.command.ChildCommand;
 import com.github.commander.test.command.ParentCommand;
-import com.github.ravenlab.commander.command.platform.bungeecord.BungeeCommandWrapper;
+import com.github.ravenlab.commander.platform.bungeecord.BungeeCommandWrapper;
 
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;

@@ -1,4 +1,4 @@
-package com.github.ravenlab.commander.command.platform.bungeecord;
+package com.github.ravenlab.commander.platform.bungeecord;
 
 import com.github.ravenlab.commander.command.CommanderCommand;
 import com.github.ravenlab.commander.command.CommanderExecutor;

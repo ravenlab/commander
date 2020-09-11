@@ -1,12 +1,12 @@
-package com.github.ravenlab.commander.command.platform.bukkit;
-
-import org.bukkit.command.CommandSender;
+package com.github.ravenlab.commander.platform.bungeecord;
 
 import com.github.ravenlab.commander.sender.CommanderSender;
 
-public class BukkitCommanderSender extends CommanderSender<CommandSender> {
+import net.md_5.bungee.api.CommandSender;
 
-	public BukkitCommanderSender(CommandSender sender) {
+public class BungeeCommanderSender extends CommanderSender<CommandSender> {
+
+	public BungeeCommanderSender(CommandSender sender) {
 		super(sender);
 	}
 
@@ -20,6 +20,7 @@ public class BukkitCommanderSender extends CommanderSender<CommandSender> {
 		return this.getNative().hasPermission(permission);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void sendMessage(String message) {
 		this.getNative().sendMessage(message);

@@ -16,7 +16,7 @@ import com.github.commander.test.command.ChildCommand;
 import com.github.commander.test.command.NoAnnotationCommand;
 import com.github.commander.test.command.ParentCommand;
 import com.github.ravenlab.commander.command.CommanderCommand;
-import com.github.ravenlab.commander.command.platform.bungeecord.BungeeCommander;
+import com.github.ravenlab.commander.platform.bungeecord.BungeeCommander;
 
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;

@@ -15,7 +15,7 @@ import org.junit.Test;
 import com.github.commander.test.bukkit.mock.BukkitMockFactory;
 import com.github.commander.test.bukkit.mock.MockBukkitCommandMap;
 import com.github.commander.test.bukkit.mock.MockBukkitServer;
-import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommandMap;
+import com.github.ravenlab.commander.platform.bukkit.BukkitCommandMap;
 
 public class BukkitCommandMapTest {
 

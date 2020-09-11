@@ -12,7 +12,7 @@ import org.junit.Test;
 import com.github.commander.test.bungeecord.mock.BungeeMockFactory;
 import com.github.commander.test.bungeecord.mock.MockBungeePlayer;
 import com.github.commander.test.bungeecord.mock.MockBungeeServer;
-import com.github.ravenlab.commander.command.platform.bungeecord.BungeeTypeResolver;
+import com.github.ravenlab.commander.platform.bungeecord.BungeeTypeResolver;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.transform.PlayerTransformer;
 

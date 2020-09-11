@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.github.commander.test.bungeecord.mock.BungeeMockFactory;
 import com.github.commander.test.bungeecord.mock.MockBungeeCommandSender;
-import com.github.ravenlab.commander.command.platform.bungeecord.BungeeCommanderSender;
+import com.github.ravenlab.commander.platform.bungeecord.BungeeCommanderSender;
 
 
 public class BungeeCommanderSenderTest {

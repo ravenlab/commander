@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.github.commander.test.bukkit.mock.BukkitMockFactory;
 import com.github.commander.test.bukkit.mock.MockBukkitCommandSender;
-import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommanderSender;
+import com.github.ravenlab.commander.platform.bukkit.BukkitCommanderSender;
 
 
 public class BukkitCommanderSenderTest {

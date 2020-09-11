@@ -20,7 +20,7 @@ import com.github.commander.test.command.ChildCommand;
 import com.github.commander.test.command.NoAnnotationCommand;
 import com.github.commander.test.command.ParentCommand;
 import com.github.ravenlab.commander.command.CommanderCommand;
-import com.github.ravenlab.commander.command.platform.bukkit.BukkitCommander;
+import com.github.ravenlab.commander.platform.bukkit.BukkitCommander;
 
 public class BukkitCommanderTest {
 

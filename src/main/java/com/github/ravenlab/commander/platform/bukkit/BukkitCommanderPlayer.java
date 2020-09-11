@@ -1,4 +1,4 @@
-package com.github.ravenlab.commander.command.platform.bukkit;
+package com.github.ravenlab.commander.platform.bukkit;
 
 import java.util.UUID;
 
