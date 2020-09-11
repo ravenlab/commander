@@ -49,7 +49,7 @@ public class BungeeTransformerTest {
 	public void playerTransformerTest() {
 		TypeResolver<ProxiedPlayer, Object> resolver = new BungeeTypeResolver();
 		PlayerTransformer<ProxiedPlayer> transformer = new PlayerTransformer<>(resolver);
-		Optional<ProxiedPlayer> playerOptional = transformer.transform(this.player.getName());
+		Optional<ProxiedPlayer> playerOptional = transformer.transform(ProxiedPlayer.class, this.player.getName());
 		assertTrue(playerOptional.isPresent());
 	}
 }

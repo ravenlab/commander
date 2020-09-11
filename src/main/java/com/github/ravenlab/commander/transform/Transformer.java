@@ -16,7 +16,7 @@ public abstract class Transformer<T> {
 		this.resolver = resolver;
 	}
 	
-	public abstract Optional<T> transform(String arg);
+	public abstract Optional<T> transform(Class<T> clazz, String arg);
 	
 	public Optional<TypeResolver<?, ?>> getResolver() {
 		if(this.resolver == null) {

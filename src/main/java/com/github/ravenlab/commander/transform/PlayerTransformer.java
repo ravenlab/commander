@@ -12,7 +12,7 @@ public class PlayerTransformer<T> extends Transformer<T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Optional<T> transform(String name) {
+	public Optional<T> transform(Class<T> clazz, String name) {
 		return (Optional<T>) this.getResolver().get().getPlayer(name);
 	}
 }

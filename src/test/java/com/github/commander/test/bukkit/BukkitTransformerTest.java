@@ -55,7 +55,7 @@ public class BukkitTransformerTest {
 	public void playerTransformerTest() {
 		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
 		PlayerTransformer<Player> transformer = new PlayerTransformer<>(resolver);
-		Optional<Player> playerOptional = transformer.transform(this.player.getName());
+		Optional<Player> playerOptional = transformer.transform(Player.class, this.player.getName());
 		assertTrue(playerOptional.isPresent());
 	}
 	
@@ -63,7 +63,7 @@ public class BukkitTransformerTest {
 	public void worldTransformerTest() {
 		TypeResolver<Player, World> resolver = new BukkitTypeResolver();
 		WorldTransformer<World> transformer = new WorldTransformer<>(resolver);
-		Optional<World> worldOptional = transformer.transform(this.world.getName());
+		Optional<World> worldOptional = transformer.transform(World.class, this.world.getName());
 		assertTrue(worldOptional.isPresent());
 	}
 }

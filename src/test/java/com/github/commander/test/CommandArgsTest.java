@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import org.junit.Test;
 
 import com.github.commander.test.resolver.TestTypeResolver;
+import com.github.commander.test.testenum.Status;
 import com.github.ravenlab.commander.command.CommandArgs;
 import com.github.ravenlab.commander.resolver.TypeResolver;
 
@@ -88,5 +89,17 @@ public class CommandArgsTest {
 		CommandArgs commandArgs = new CommandArgs(args, testResolver);
 		
 		assertTrue(commandArgs.size() == 1);
+	}
+	
+	@Test
+	public void enumTest() {
+		String enumStr = Status.PASS.toString();
+		List<String> args = new ArrayList<>();
+		args.add(enumStr);
+		TypeResolver<?, ?> testResolver = new TestTypeResolver();
+		CommandArgs commandArgs = new CommandArgs(args, testResolver);
+		Optional<Status> status = commandArgs.getArg(Status.class, 0);
+		assertTrue(status.isPresent());
+		assertTrue(status.get() == Status.PASS);
 	}
 }

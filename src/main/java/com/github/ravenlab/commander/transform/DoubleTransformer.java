@@ -5,7 +5,7 @@ import java.util.Optional;
 public class DoubleTransformer extends Transformer<Double> {
 
 	@Override
-	public Optional<Double> transform(String arg) {
+	public Optional<Double> transform(Class<Double> clazz, String arg) {
 		try {
 			double value = Double.parseDouble(arg);
 			return Optional.of(value);

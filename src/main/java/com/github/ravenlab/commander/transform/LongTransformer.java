@@ -5,7 +5,7 @@ import java.util.Optional;
 public class LongTransformer extends Transformer<Long> {
 
 	@Override
-	public Optional<Long> transform(String arg) {
+	public Optional<Long> transform(Class<Long> clazz, String arg) {
 		try {
 			Long value = Long.valueOf(arg);
 			return Optional.of(value);

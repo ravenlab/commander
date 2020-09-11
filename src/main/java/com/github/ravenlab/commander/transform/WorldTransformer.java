@@ -12,7 +12,7 @@ public class WorldTransformer<T> extends Transformer<T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Optional<T> transform(String arg) {
+	public Optional<T> transform(Class<T> clazz, String arg) {
 		return (Optional<T>) this.getResolver().get().getWorld(arg);
 	}
 }

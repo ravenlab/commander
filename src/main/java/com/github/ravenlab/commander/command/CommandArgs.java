@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.github.ravenlab.commander.resolver.TypeResolver;
 import com.github.ravenlab.commander.transform.DoubleTransformer;
+import com.github.ravenlab.commander.transform.EnumTransformer;
 import com.github.ravenlab.commander.transform.FloatTransformer;
 import com.github.ravenlab.commander.transform.IntegerTransformer;
 import com.github.ravenlab.commander.transform.LongTransformer;
@@ -49,17 +50,28 @@ public class CommandArgs{
 	
 	@SuppressWarnings("unchecked")
 	private <T> Optional<T> transform(Class<T> clazz, String arg) {
+		if(clazz.isEnum()) {
+			return (Optional<T>) this.transformEnum(clazz, arg);
+		}
+		
 		Transformer<?> transformer = this.transformerMap.get(clazz);
 		if(transformer == null) {
 			return Optional.empty();
 		}
 		
-		Optional<?> transformed = transformer.transform(arg);
+		Transformer<T> typeTransformer = ((Transformer<T>)transformer);
+		Optional<T> transformed = typeTransformer.transform(clazz, arg);
 		if(transformed.isPresent()) {
-			return Optional.of((T) transformed.get());
+			return Optional.of(transformed.get());
 		}
 		
 		return Optional.empty();
+	}
+	
+	@SuppressWarnings("unchecked")
+	private <T extends Enum<T>> Optional<T> transformEnum(Class<?> clazz, String arg) {
+		EnumTransformer<T> enumTransformer = new EnumTransformer<>();
+		return enumTransformer.transform((Class<T>) clazz, arg);
 	}
 	
 	public int size() {
