@@ -12,5 +12,5 @@ public interface TypeResolver<P, W> {
 	public Optional<W> getWorld(String name);
 	public CommanderSender<?> getSender(Object nativeSender);
 	public Class<P> getPlayerClass();
-	public Class<W> getWorldClass();
+	public Optional<Class<W>> getWorldClass();
 }

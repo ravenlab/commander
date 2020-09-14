@@ -14,7 +14,6 @@ import com.github.commander.test.bungeecord.mock.MockBungeeServer;
 import com.github.ravenlab.commander.platform.bungeecord.BungeeCommandMap;
 
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.plugin.PluginManager;
 
 public class BungeeCommandMapTest {
 

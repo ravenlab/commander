@@ -57,7 +57,7 @@ public class BukkitTypeResolver implements TypeResolver<Player, World> {
 	}
 
 	@Override
-	public Class<World> getWorldClass() {
-		return World.class;
+	public Optional<Class<World>> getWorldClass() {
+		return Optional.of(World.class);
 	}
 }

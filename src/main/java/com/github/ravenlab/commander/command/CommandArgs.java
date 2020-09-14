@@ -81,7 +81,9 @@ public class CommandArgs{
 	private Map<Class<?>, Transformer<?>> registerTransformers(TypeResolver<?, ?> resolver) {
 		Map<Class<?>, Transformer<?>> transformers = new HashMap<>();
 		transformers.put(resolver.getPlayerClass(), new PlayerTransformer<>(resolver));
-		transformers.put(resolver.getWorldClass(), new WorldTransformer<>(resolver));
+		resolver.getWorldClass().ifPresent(clazz -> {
+			transformers.put(clazz, new WorldTransformer<>(resolver));
+		});
 		transformers.put(Integer.class, new IntegerTransformer());
 		transformers.put(Double.class, new DoubleTransformer());
 		transformers.put(Float.class, new FloatTransformer());

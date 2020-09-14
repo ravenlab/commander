@@ -44,8 +44,7 @@ public class BungeeTypeResolver implements TypeResolver<ProxiedPlayer, Object> {
 	}
 
 	@Override
-	public Class<Object> getWorldClass() {
-		return Object.class;
+	public Optional<Class<Object>> getWorldClass() {
+		return Optional.empty();
 	}
-
 }

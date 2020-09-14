@@ -21,9 +21,8 @@ public class TestTypeResolver implements TypeResolver<Object, Object> {
 	}
 
 	@Override
-	public Class<Object> getWorldClass() {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Class<Object>> getWorldClass() {
+		return Optional.empty();
 	}
 
 	@Override
@@ -40,8 +39,7 @@ public class TestTypeResolver implements TypeResolver<Object, Object> {
 
 	@Override
 	public Optional<Object> getWorld(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return Optional.empty();
 	}
 
 }
