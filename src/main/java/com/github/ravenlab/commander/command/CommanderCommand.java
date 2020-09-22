@@ -20,7 +20,7 @@ public abstract class CommanderCommand<T> {
 		this.childrenMap = new HashMap<>();
 	}
 	
-	public abstract boolean execute(T sender, String name, CommandArgs args);
+	public abstract boolean execute(T sender, String commandName, CommandArgs args);
 	
 	public Optional<CommandData> getData() {
 		return this.data;
