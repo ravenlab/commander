@@ -71,6 +71,14 @@ public class CommandDataTest {
 	}
 	
 	@Test
+	public void testUsageMessage() {
+		CommanderCommand<TestSender> parent = new ParentCommand<>();
+		CommandData data = parent.getData().get();
+		String usage = data.getUsage();
+		assertTrue(usage.equals("/parent"));
+	}
+	
+	@Test
 	public void testNoAnnotation() {
 		CommanderCommand<TestSender> parent = new NoAnnotationCommand<>();
 		Optional<CommandData> data = parent.getData();

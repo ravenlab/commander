@@ -17,12 +17,14 @@ public class CommandData {
 	private Collection<String> aliases;
 	private String permission;
 	private String noPermissionMessage;
+	private String usage;
 	
-	public CommandData(String name, Collection<String> aliases, String permission, String noPermissionMessage) {
+	public CommandData(String name, Collection<String> aliases, String permission, String noPermissionMessage, String usage) {
 		this.name = name;
 		this.aliases = Collections.unmodifiableCollection(aliases);
 		this.permission = permission;
 		this.noPermissionMessage = noPermissionMessage;
+		this.usage = usage;
 	}
 	
 	public String getName() {
@@ -41,18 +43,24 @@ public class CommandData {
 		return this.noPermissionMessage;
 	}
 	
+	public String getUsage() {
+		return this.usage;
+	}
+	
 	public static class Builder {
 		
 		private String name;
 		private Collection<String> aliases;
 		private String permission;
 		private String noPermissionMessage;
+		private String usage;
 		
 		public Builder() {
 			this.name = null;
 			this.aliases = new ArrayList<>();
 			this.permission = "";
 			this.noPermissionMessage = "";
+			this.usage = "";
 		}
 		
 		public Builder setName(String name) {
@@ -80,6 +88,11 @@ public class CommandData {
 			return this;
 		}
 		
+		public Builder setUsage(String usage) {
+			this.usage = usage;
+			return this;
+		}
+		
 		public Builder consumeCommand(CommanderCommand<?> command) {
 			Command[] cmdAr = command.getClass().getAnnotationsByType(Command.class);
 			if(cmdAr.length == 0) {
@@ -91,6 +104,7 @@ public class CommandData {
 			this.addAliases(found.aliases());
 			this.setPermission(found.permission());
 			this.setNoPermissionMessage(found.noPermissionMessage());
+			this.setUsage(found.usage());
 			return this;
 		}
 		
@@ -109,7 +123,7 @@ public class CommandData {
 				this.noPermissionMessage = NO_PERMISSION_MESSAGE;
 			}
 			this.noPermissionMessage = ChatColor.translateAlternateColorCodes('&', this.noPermissionMessage);
-			CommandData commandData = new CommandData(lowerName, aliases, this.permission, this.noPermissionMessage);
+			CommandData commandData = new CommandData(lowerName, aliases, this.permission, this.noPermissionMessage, this.usage);
 			return Optional.of(commandData);
 		}
 	}
