@@ -36,7 +36,7 @@ public class CommanderExecutor<T> {
 				sender.sendMessage(commandData.getUsage());
 			}
 		} else {
-			String noPermissionMessage = commandData.getNoPermissionMessage();
+			String noPermissionMessage = commandData.getPermissionMessage();
 			sender.sendMessage(noPermissionMessage);
 		}
 	}

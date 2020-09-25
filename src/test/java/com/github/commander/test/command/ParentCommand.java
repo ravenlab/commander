@@ -10,7 +10,7 @@ import com.github.ravenlab.commander.command.CommanderCommand;
 	value = "parent", 
 	aliases= {"father", "mother"},
 	permission="parent.use", 
-	noPermissionMessage="&cNo permission for that action",
+	permissionMessage="&cNo permission for that action",
 	usage = "/parent"
 )
 public class ParentCommand<T> extends CommanderCommand<T> {

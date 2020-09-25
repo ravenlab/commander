@@ -12,7 +12,7 @@ public @interface Command {
 	String value();
 	String[] aliases() default {};
 	String permission() default "";
-	String noPermissionMessage() default "";
+	String permissionMessage() default "";
 	String usage() default "";
 	
 }

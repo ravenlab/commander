@@ -56,7 +56,7 @@ public class CommandDataTest {
 	public void testNoPermissionMessage() {
 		CommanderCommand<TestSender> child = new ChildCommand<>();
 		CommandData data = child.getData().get();
-		String permissionMessage = data.getNoPermissionMessage();
+		String permissionMessage = data.getPermissionMessage();
 		String checkAgainst = ChatColor.translateAlternateColorCodes(CommandData.NO_PERMISSION_MESSAGE);
 		assertTrue(permissionMessage.equals(checkAgainst));
 	}
@@ -65,7 +65,7 @@ public class CommandDataTest {
 	public void testPermissionMessage() {
 		CommanderCommand<TestSender> parent = new ParentCommand<>();
 		CommandData data = parent.getData().get();
-		String permissionMessage = data.getNoPermissionMessage();
+		String permissionMessage = data.getPermissionMessage();
 		String checkAgainst = ChatColor.translateAlternateColorCodes("&cNo permission for that action");
 		assertTrue(permissionMessage.equals(checkAgainst));
 	}

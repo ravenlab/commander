@@ -16,14 +16,14 @@ public class CommandData {
 	private String name;
 	private Collection<String> aliases;
 	private String permission;
-	private String noPermissionMessage;
+	private String permissionMessage;
 	private String usage;
 	
-	public CommandData(String name, Collection<String> aliases, String permission, String noPermissionMessage, String usage) {
+	public CommandData(String name, Collection<String> aliases, String permission, String permissionMessage, String usage) {
 		this.name = name;
 		this.aliases = Collections.unmodifiableCollection(aliases);
 		this.permission = permission;
-		this.noPermissionMessage = noPermissionMessage;
+		this.permissionMessage = permissionMessage;
 		this.usage = usage;
 	}
 	
@@ -39,8 +39,8 @@ public class CommandData {
 		return this.permission;
 	}
 	
-	public String getNoPermissionMessage() {
-		return this.noPermissionMessage;
+	public String getPermissionMessage() {
+		return this.permissionMessage;
 	}
 	
 	public String getUsage() {
@@ -52,14 +52,14 @@ public class CommandData {
 		private String name;
 		private Collection<String> aliases;
 		private String permission;
-		private String noPermissionMessage;
+		private String permissionMessage;
 		private String usage;
 		
 		public Builder() {
 			this.name = null;
 			this.aliases = new ArrayList<>();
 			this.permission = "";
-			this.noPermissionMessage = "";
+			this.permissionMessage = "";
 			this.usage = "";
 		}
 		
@@ -83,8 +83,8 @@ public class CommandData {
 			return this;
 		}
 		
-		public Builder setNoPermissionMessage(String noPermissionMessage) {
-			this.noPermissionMessage = noPermissionMessage;
+		public Builder setPermissionMessage(String permissionMessage) {
+			this.permissionMessage = permissionMessage;
 			return this;
 		}
 		
@@ -103,7 +103,7 @@ public class CommandData {
 			this.setName(found.value());
 			this.addAliases(found.aliases());
 			this.setPermission(found.permission());
-			this.setNoPermissionMessage(found.noPermissionMessage());
+			this.setPermissionMessage(found.permissionMessage());
 			this.setUsage(found.usage());
 			return this;
 		}
@@ -119,11 +119,11 @@ public class CommandData {
 			}
 			aliases.add(lowerName);
 			
-			if(this.noPermissionMessage.equals("")) {
-				this.noPermissionMessage = NO_PERMISSION_MESSAGE;
+			if(this.permissionMessage.equals("")) {
+				this.permissionMessage = NO_PERMISSION_MESSAGE;
 			}
-			this.noPermissionMessage = ChatColor.translateAlternateColorCodes('&', this.noPermissionMessage);
-			CommandData commandData = new CommandData(lowerName, aliases, this.permission, this.noPermissionMessage, this.usage);
+			this.permissionMessage = ChatColor.translateAlternateColorCodes('&', this.permissionMessage);
+			CommandData commandData = new CommandData(lowerName, aliases, this.permission, this.permissionMessage, this.usage);
 			return Optional.of(commandData);
 		}
 	}
