@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.World;
 
@@ -33,7 +34,7 @@ public class SpongeTypeResolver implements TypeResolver<Player, World> {
 			Player player = (Player) nativeSender;
 			return new SpongeCommanderPlayer(player);
 		} else {
-			CommandSender commandSender = (CommandSender) nativeSender;
+			CommandSource commandSender = (CommandSource) nativeSender;
 			return new SpongeCommanderSender(commandSender);
 		}
 	}
