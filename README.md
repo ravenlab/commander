@@ -23,6 +23,7 @@ Commander isn't really stable enough to use yet. The API should be stabilizing w
 * Bukkit - Fully feature complete
 * BungeeCord - Fully feature complete
 * Sponge - To be implemented
+* Velocity - To be implemented
 * Nukkit - To be implemented
 * Forge - Maybe some day
 * Fabric - Maybe some day
