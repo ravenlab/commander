@@ -4,6 +4,10 @@ import java.util.Optional;
 
 public class DoubleTransformer extends Transformer<Double> {
 
+	public DoubleTransformer() {
+		super("boolean");
+	}
+
 	@Override
 	public Optional<Double> transform(Class<Double> clazz, String arg) {
 		try {

@@ -4,6 +4,10 @@ import java.util.Optional;
 
 public class LongTransformer extends Transformer<Long> {
 
+	public LongTransformer() {
+		super("long");
+	}
+
 	@Override
 	public Optional<Long> transform(Class<Long> clazz, String arg) {
 		try {

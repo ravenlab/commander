@@ -4,6 +4,10 @@ import java.util.Optional;
 
 public class IntegerTransformer extends Transformer<Integer> {
 
+	public IntegerTransformer() {
+		super("integer");
+	}
+
 	@Override
 	public Optional<Integer> transform(Class<Integer> clazz, String arg) {
 		try {

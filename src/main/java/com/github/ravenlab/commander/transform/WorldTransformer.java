@@ -7,7 +7,7 @@ import com.github.ravenlab.commander.resolver.TypeResolver;
 public class WorldTransformer<T> extends Transformer<T> {
 
 	public WorldTransformer(TypeResolver<?, ?> resolver) {
-		super(resolver);
+		super("world", resolver);
 	}
 
 	@SuppressWarnings("unchecked")

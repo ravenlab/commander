@@ -4,6 +4,10 @@ import java.util.Optional;
 
 public class BooleanTransformer extends Transformer<Boolean> {
 
+	public BooleanTransformer() {
+		super("boolean");
+	}
+
 	@Override
 	public Optional<Boolean> transform(Class<Boolean> clazz, String arg) {
 		String lowerArg = arg.toLowerCase();

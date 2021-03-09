@@ -4,6 +4,10 @@ import java.util.Optional;
 
 public class EnumTransformer<T extends Enum<T>> extends Transformer<T> {
 
+	public EnumTransformer() {
+		super("enum");
+	}
+
 	@Override
 	public Optional<T> transform(Class<T> clazz, String arg) {
 		for(T t : clazz.getEnumConstants()) {

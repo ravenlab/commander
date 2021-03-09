@@ -7,7 +7,7 @@ import com.github.ravenlab.commander.resolver.TypeResolver;
 public class PlayerTransformer<T> extends Transformer<T> {
 
 	public PlayerTransformer(TypeResolver<?, ?> resolver) {
-		super(resolver);
+		super("player", resolver);
 	}
 
 	@SuppressWarnings("unchecked")
