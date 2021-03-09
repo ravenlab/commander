@@ -8,11 +8,14 @@ import com.github.ravenlab.commander.transform.*;
 public class CommandArgs{
 
 	private List<String> args;
-	private Map<Class<?>, Transformer<?>> transformerMap;
+	private Map<Class<?>, Transformer<?>> transformerClassMap;
+	private Map<String, Transformer<?>> transformerNameMap;
 	
 	public CommandArgs(List<String> args, TypeResolver<?, ?> resolver) {
 		this.args = args;
-		this.transformerMap = this.registerTransformers(resolver);
+		this.transformerClassMap = new HashMap<>();
+		this.transformerNameMap = new HashMap<>();
+		this.registerTransformers(resolver);
 	}
 
 	public Optional<String> getArg(int index) {
@@ -44,7 +47,7 @@ public class CommandArgs{
 			return (Optional<T>) this.transformEnum(clazz, arg);
 		}
 		
-		Transformer<?> transformer = this.transformerMap.get(clazz);
+		Transformer<?> transformer = this.transformerClassMap.get(clazz);
 		if(transformer == null) {
 			return Optional.empty();
 		}
@@ -68,17 +71,20 @@ public class CommandArgs{
 		return this.args.size();
 	}
 	
-	private Map<Class<?>, Transformer<?>> registerTransformers(TypeResolver<?, ?> resolver) {
-		Map<Class<?>, Transformer<?>> transformers = new HashMap<>();
-		transformers.put(resolver.getPlayerClass(), new PlayerTransformer<>(resolver));
+	private void registerTransformers(TypeResolver<?, ?> resolver) {
+		this.registerTransformer(resolver.getPlayerClass(), new PlayerTransformer<>(resolver));
 		resolver.getWorldClass().ifPresent(clazz -> {
-			transformers.put(clazz, new WorldTransformer<>(resolver));
+			this.registerTransformer(clazz, new WorldTransformer<>(resolver));
 		});
-		transformers.put(Integer.class, new IntegerTransformer());
-		transformers.put(Double.class, new DoubleTransformer());
-		transformers.put(Float.class, new FloatTransformer());
-		transformers.put(Long.class, new LongTransformer());
-		transformers.put(UUID.class, new UUIDTransformer());
-		return transformers;
+		this.registerTransformer(Integer.class, new IntegerTransformer());
+		this.registerTransformer(Double.class, new DoubleTransformer());
+		this.registerTransformer(Float.class, new FloatTransformer());
+		this.registerTransformer(Long.class, new LongTransformer());
+		this.registerTransformer(UUID.class, new UUIDTransformer());
+	}
+
+	private void registerTransformer(Class<?> clazz, Transformer<?> transformer) {
+		this.transformerClassMap.put(clazz, transformer);
+		this.transformerNameMap.put(transformer.getName(), transformer);
 	}
 }
