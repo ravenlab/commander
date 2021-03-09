@@ -1,21 +1,22 @@
 package com.github.commander.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Optional;
+import java.util.UUID;
 
+import com.github.ravenlab.commander.transform.*;
 import org.junit.Test;
 
 import com.github.commander.test.testenum.Status;
-import com.github.ravenlab.commander.transform.BooleanTransformer;
-import com.github.ravenlab.commander.transform.DoubleTransformer;
-import com.github.ravenlab.commander.transform.EnumTransformer;
-import com.github.ravenlab.commander.transform.FloatTransformer;
-import com.github.ravenlab.commander.transform.IntegerTransformer;
-import com.github.ravenlab.commander.transform.LongTransformer;
+
+import static org.junit.Assert.*;
 
 public class TransformerTest {
+
+	@Test
+	public void booleanTransformerTestName() {
+		BooleanTransformer transformer = new BooleanTransformer();
+		assertEquals("boolean", transformer.getName());
+	}
 
 	@Test
 	public void booleanTransformerTestInvalid() {
@@ -144,6 +145,28 @@ public class TransformerTest {
 	@Test
 	public void statusTransformerNoResolverTest() {
 		EnumTransformer<Status> transformer = new EnumTransformer<>();
+		assertFalse(transformer.getResolver().isPresent());
+	}
+
+	@Test
+	public void uuidTransformerTestInvalid() {
+		UUIDTransformer transformer = new UUIDTransformer();
+		Optional<UUID> value = transformer.transform(UUID.class, "a");
+		assertFalse(value.isPresent());
+	}
+
+	@Test
+	public void uuidTransformerTestValid() {
+		UUIDTransformer transformer = new UUIDTransformer();
+		UUID uuid = UUID.fromString("c0c046b6-666d-4f23-8f13-193c2cfefb5c");
+		Optional<UUID> value = transformer.transform(UUID.class, "c0c046b6-666d-4f23-8f13-193c2cfefb5c");
+		assertTrue(value.isPresent());
+		assertEquals(uuid, value.get());
+	}
+
+	@Test
+	public void uuidTransformerNoResolverTest() {
+		UUIDTransformer transformer = new UUIDTransformer();
 		assertFalse(transformer.getResolver().isPresent());
 	}
 }

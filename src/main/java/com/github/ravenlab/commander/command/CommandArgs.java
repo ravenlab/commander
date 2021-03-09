@@ -1,19 +1,9 @@
 package com.github.ravenlab.commander.command;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import com.github.ravenlab.commander.resolver.TypeResolver;
-import com.github.ravenlab.commander.transform.DoubleTransformer;
-import com.github.ravenlab.commander.transform.EnumTransformer;
-import com.github.ravenlab.commander.transform.FloatTransformer;
-import com.github.ravenlab.commander.transform.IntegerTransformer;
-import com.github.ravenlab.commander.transform.LongTransformer;
-import com.github.ravenlab.commander.transform.PlayerTransformer;
-import com.github.ravenlab.commander.transform.Transformer;
-import com.github.ravenlab.commander.transform.WorldTransformer;
+import com.github.ravenlab.commander.transform.*;
 
 public class CommandArgs{
 
@@ -88,6 +78,7 @@ public class CommandArgs{
 		transformers.put(Double.class, new DoubleTransformer());
 		transformers.put(Float.class, new FloatTransformer());
 		transformers.put(Long.class, new LongTransformer());
+		transformers.put(UUID.class, new UUIDTransformer());
 		return transformers;
 	}
 }

@@ -13,6 +13,7 @@ public abstract class Transformer<T> {
 	}
 	
 	public Transformer(String name, TypeResolver<?, ?> resolver) {
+		this.name = name;
 		this.resolver = resolver;
 	}
 
