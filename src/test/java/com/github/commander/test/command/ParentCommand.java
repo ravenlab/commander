@@ -2,7 +2,7 @@ package com.github.commander.test.command;
 
 import java.util.Optional;
 
-import com.github.ravenlab.commander.command.Command;
+import com.github.ravenlab.commander.command.annotation.Command;
 import com.github.ravenlab.commander.command.CommandArgs;
 import com.github.ravenlab.commander.command.CommanderCommand;
 
@@ -11,7 +11,7 @@ import com.github.ravenlab.commander.command.CommanderCommand;
 	aliases= {"father", "mother"},
 	permission="parent.use", 
 	permissionMessage="&cNo permission for that action",
-	usage = "/parent"
+	usage = "/command"
 )
 public class ParentCommand<T> extends CommanderCommand<T> {
 	

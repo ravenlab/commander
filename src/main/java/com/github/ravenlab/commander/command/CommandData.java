@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 
+import com.github.ravenlab.commander.command.annotation.Command;
 import com.github.ravenlab.commander.util.ChatColor;
 
 public class CommandData {

@@ -33,7 +33,8 @@ public class CommanderExecutor<T> {
 			CommandArgs commandArgs = new CommandArgs(Arrays.asList(executeArgs), this.resolver);
 			boolean executed = commandToExecute.execute((T) nativeSender, label, commandArgs);
 			if(!executed && !commandData.getUsage().equals("")) {
-				sender.sendMessage(commandData.getUsage());
+				String replacedUsage = commandData.getUsage().replace("/command", "/" + label);
+				sender.sendMessage(replacedUsage);
 			}
 		} else {
 			String noPermissionMessage = commandData.getPermissionMessage();

@@ -1,4 +1,4 @@
-package com.github.ravenlab.commander.command;
+package com.github.ravenlab.commander.command.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,5 +14,4 @@ public @interface Command {
 	String permission() default "";
 	String permissionMessage() default "";
 	String usage() default "";
-	
 }

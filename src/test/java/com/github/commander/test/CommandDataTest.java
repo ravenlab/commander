@@ -75,7 +75,7 @@ public class CommandDataTest {
 		CommanderCommand<TestSender> parent = new ParentCommand<>();
 		CommandData data = parent.getData().get();
 		String usage = data.getUsage();
-		assertTrue(usage.equals("/parent"));
+		assertTrue(usage.equals("/command"));
 	}
 	
 	@Test
